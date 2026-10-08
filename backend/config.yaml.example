@@ -1,0 +1,41 @@
+server:
+  port: "8080"
+  mode: "release" # debug=开发环境 release=生产环境
+
+database:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "" # 填入你的数据库密码
+  dbname: "medical_monitor"
+  charset: "utf8mb4"
+  max_idle_conns: 10
+  max_open_conns: 100
+  conn_max_lifetime: 3600
+
+redis:
+  host: "127.0.0.1"
+  port: 6379
+  password: ""
+  db: 0
+
+jwt:
+  secret: "" # 生产环境必须设置（openssl rand -hex 32 生成）
+  access_token_ttl: 168
+  refresh_token_ttl: 720
+
+# 手机号加密密钥，必须恰好 32 字节
+encryption:
+  key: "" # 生产环境必须设置（openssl rand -hex 16 生成）
+
+wechat:
+  mode: "mock" # mock=开发环境用模拟登录；real=生产环境调用真实微信API
+  app_id: "" # 微信小程序 AppID
+  app_secret: "" # 微信小程序 AppSecret
+
+log:
+  level: "debug"
+  filename: "logs/app.log"
+  max_size: 10
+  max_backups: 5
+  max_age: 30
