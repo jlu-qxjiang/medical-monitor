@@ -1,0 +1,78 @@
+/* 加入家庭组样式 */
+.page-container {
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+  background: var(--color-bg);
+}
+
+.form-intro {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+}
+
+.intro-icon {
+  font-size: 80rpx;
+  display: block;
+  margin-bottom: var(--spacing-md);
+}
+
+.intro-title {
+  display: block;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.intro-desc {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 500rpx;
+  margin: 0 auto;
+}
+
+.code-input {
+  text-align: center;
+  font-size: 48rpx;
+  font-weight: 700;
+  letter-spacing: 24rpx;
+  font-family: 'Courier New', monospace;
+  color: var(--color-primary);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-xl);
+}
+
+.join-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.join-success {
+  text-align: center;
+  padding-top: 120rpx;
+}
+
+.success-icon {
+  font-size: 120rpx;
+  margin-bottom: var(--spacing-md);
+}
+
+.success-title {
+  display: block;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.success-msg {
+  display: block;
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+}

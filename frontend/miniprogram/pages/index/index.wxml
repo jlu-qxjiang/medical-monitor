@@ -1,0 +1,259 @@
+<!-- 首页 — Vant Weapp 重构 -->
+<view class="page-container">
+
+  <!-- 未登录：角色选择 -->
+  <view wx:if="{{!isLoggedIn}}" class="welcome-page">
+    <view class="welcome-card">
+      <text class="welcome-title">朝夕小叮</text>
+      <text class="welcome-sub">请选择您的使用身份</text>
+      <view class="welcome-roles">
+        <view class="welcome-role role-elder" bindtap="goLogin" data-role="elder">
+          <view class="role-icon-wrap"><van-icon name="user-o" size="52rpx" /></view>
+          <view class="role-text">
+            <text class="role-label">老人模式</text>
+            <text class="role-desc">接收服药提醒，操作简单</text>
+          </view>
+        </view>
+        <view class="welcome-role role-child" bindtap="goLogin" data-role="child">
+          <view class="role-icon-wrap"><van-icon name="friends-o" size="52rpx" /></view>
+          <view class="role-text">
+            <text class="role-label">子女模式</text>
+            <text class="role-desc">管理家人用药，配置用药计划与药品库存</text>
+          </view>
+        </view>
+      </view>
+      <text class="welcome-footer">后续可在个人中心重新切换使用模式</text>
+    </view>
+  </view>
+
+  <!-- 已登录：错误态 -->
+  <view wx:elif="{{loadError}}" class="error-container">
+    <van-empty description="加载失败">
+      <van-button type="primary" size="small" bind:click="handleRetry">重新加载</van-button>
+    </van-empty>
+  </view>
+
+  <!-- 已登录：老人端 -->
+  <view wx:elif="{{isElder}}" class="elder-page">
+
+    <!-- 无共享家庭 → 加入 -->
+    <view wx:if="{{!hasSharedFamily}}" class="join-box">
+      <van-empty image="error" description="你还没有加入家庭组" />
+      <view class="join-hint">请子女创建家庭组后将邀请码发给你</view>
+      <van-field type="number" maxlength="6" placeholder="输入6位邀请码" value="{{inviteCode}}" bind:change="onInviteField" center border />
+      <van-button type="primary" size="large" block loading="{{joining}}" bind:click="joinFamily" style="margin-top:24rpx;">加入家庭组</van-button>
+      <text wx:if="{{joinError}}" class="join-error">{{joinError}}</text>
+    </view>
+
+    <!-- 有共享家庭 → 用药 -->
+    <block wx:else>
+      <!-- 自定义双Tab -->
+      <view class="elder-tabs">
+        <view class="elder-tab {{elderTab==='today'?'active':''}}" bindtap="switchElderTab" data-tab="today">
+          <text>今日服药</text>
+        </view>
+        <view class="elder-tab {{elderTab==='plan'?'active':''}}" bindtap="switchElderTab" data-tab="plan">
+          <text>用药计划</text>
+        </view>
+      </view>
+
+      <!-- ===== 今日服药 ===== -->
+      <view wx:if="{{elderTab==='today'}}" class="elder-tab-body">
+        <view wx:if="{{todayReminders.length > 0}}">
+          <view wx:for="{{todayReminders}}" wx:key="id" class="med-card {{item._allTaken ? 'card-done' : ''}}">
+
+            <!-- 卡片头部 -->
+            <view class="mc-head">
+              <view class="mc-time">
+                <view class="mc-clock"></view>
+                <text>{{item.time_label}}</text>
+              </view>
+              <view wx:if="{{item._allTaken}}" class="mc-tag tag-green-bg">全部已确认</view>
+              <view wx:elif="{{item._isMissed}}" class="mc-tag tag-red-bg">已标记未服用</view>
+              <view wx:elif="{{item._isSkipped}}" class="mc-tag tag-gray-bg">已跳过</view>
+              <view wx:else class="mc-tag tag-orange-bg">待确认</view>
+            </view>
+
+            <!-- 药品行 -->
+            <view wx:for="{{item.items}}" wx:for-item="it" wx:key="id" class="mc-med-row">
+              <view class="mc-med-info">
+                <text class="mc-med-name">{{it.medicine_name}}</text>
+                <text class="mc-med-dose">{{it.dosage}}{{it.unit}}</text>
+              </view>
+              <view class="mc-med-status">
+                <text wx:if="{{it.taken}}" class="status-check">✓</text>
+                <text wx:elif="{{item._isMissed || item._isSkipped}}" class="status-cross">✗</text>
+              </view>
+            </view>
+
+            <!-- 操作按钮（仅待确认状态显示） -->
+            <view wx:if="{{!item._allTaken && !item._isMissed && !item._isSkipped}}" class="mc-actions">
+              <button class="mc-btn-ok" data-rid="{{item.id}}" bindtap="confirmReminderAll">已服用</button>
+              <button class="mc-btn-no" data-rid="{{item.id}}" bindtap="missReminder">未服用</button>
+            </view>
+          </view>
+        </view>
+        <view wx:else class="elder-empty">今天没有用药计划，好好休息吧</view>
+      </view>
+
+      <!-- ===== 用药计划 ===== -->
+      <view wx:if="{{elderTab==='plan'}}" class="elder-tab-body">
+        <view wx:if="{{plans.length > 0}}">
+          <view wx:for="{{plans}}" wx:key="id" class="plan-card {{item._isEnded?'plan-ended':''}}" bindtap="showElderPlanDetail" data-id="{{item.id}}">
+            <view class="plan-head">
+              <text class="plan-name">{{item.medicine_name}} {{item.dosage}}{{item.unit}}</text>
+              <view wx:if="{{item._isEnded}}" class="plan-end-tag">已结束</view>
+            </view>
+            <text class="plan-time">时间：{{item.times}}</text>
+            <text class="plan-date">{{item.start_date}} ~ {{item.end_date}}</text>
+          </view>
+        </view>
+        <view wx:else class="elder-empty">暂无用药计划</view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 已登录：子女无家庭组 -->
+  <view wx:elif="{{!currentFamilyId}}" class="no-family-page">
+    <van-empty image="error" description="还没有家庭组" />
+    <view class="no-family-actions">
+      <van-button type="primary" size="large" block bind:click="handleCreateFamily">创建家庭组</van-button>
+      <van-button type="default" size="large" block style="margin-top:16rpx;" bind:click="handleJoinFamily">已有邀请码？加入家庭组</van-button>
+    </view>
+  </view>
+
+  <!-- 已登录：子女看板 -->
+  <view wx:else class="child-page">
+
+    <!-- 告警聚合 -->
+    <view wx:if="{{alerts.length > 0 || lowStocks.length > 0}}" class="alert-group">
+      <view class="alert-head">
+        <text class="alert-head-title">提醒通知</text>
+        <text class="alert-head-all" bindtap="viewAllAlerts">全部提醒 ›</text>
+      </view>
+      <!-- 超时告警 -->
+      <view wx:if="{{alerts.length > 0}}" class="alert-card alert-danger" bindtap="goElderDetail">
+        <text class="alert-icon">⚠</text>
+        <text class="alert-text">王老有{{alerts.length}}条服药任务超时未确认｜止痛片</text>
+      </view>
+      <!-- 余量不足 -->
+      <view wx:if="{{lowStocks.length > 0}}" class="alert-card alert-warn" bindtap="goStockDetail">
+        <text class="alert-icon">!</text>
+        <text class="alert-text">老人用药 剩余{{lowStocks[0].remaining_count}}/{{lowStocks[0].total_count}}，药品即将用完</text>
+      </view>
+    </view>
+
+    <!-- 家人用药状态 -->
+    <view wx:if="{{elders.length > 0}}">
+      <view wx:for="{{elders}}" wx:key="user_id" class="status-card" data-elder="{{item}}" bindtap="handleElderCardTap">
+        <view class="sc-bar {{item.overall_status}}"></view>
+        <view class="sc-body">
+          <view class="sc-head">
+            <text class="sc-name">{{item.nickname}}</text>
+            <text class="sc-label">｜家人用药状态</text>
+          </view>
+          <text class="sc-desc">今日服药：已确认{{item.confirmed}}次 / 总共{{item.total}}次{{item.overall_status === 'danger' ? '，存在超时未确认' : ''}}</text>
+          <view class="sc-progress-wrap">
+            <view class="sc-progress">
+              <view class="sc-fill" style="width:{{item.total > 0 ? (item.confirmed / item.total * 100) : 0}}%;"></view>
+            </view>
+            <text class="sc-pct">{{item._pct || 0}}%</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 我的用药 -->
+    <view wx:if="{{myReminders.length > 0}}" class="my-med-section">
+      <text class="section-label">我的用药</text>
+      <view wx:for="{{myReminders}}" wx:key="id" class="my-med-card">
+        <view class="my-med-info">
+          <text class="my-med-time">{{item.time_label}}</text>
+          <van-tag wx:if="{{item._allTaken}}" type="success">已确认</van-tag>
+          <van-tag wx:else type="warning">待确认</van-tag>
+        </view>
+        <view wx:for="{{item.items}}" wx:for-item="it" wx:key="id" class="my-med-row">
+          <text class="my-med-name">{{it.medicine_name}} {{it.dosage}}{{it.unit}}</text>
+          <view wx:if="{{!it.taken}}" class="my-med-btns">
+            <van-button type="primary" size="mini" data-rid="{{item.id}}" data-iid="{{it.id}}" bind:click="myConfirm">已服用</van-button>
+            <van-button type="default" size="mini" data-rid="{{item.id}}" bind:click="myMiss">未服用</van-button>
+          </view>
+          <text wx:else class="done-mark">✓</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 计划 Tab -->
+    <view class="child-sch-tabs">
+      <view class="cst-tabs">
+        <view class="cst-tab {{schTab==='family'?'active':''}}" bindtap="switchSchTab" data-tab="family"><text>家人计划</text></view>
+        <view class="cst-tab {{schTab==='personal'?'active':''}}" bindtap="switchSchTab" data-tab="personal"><text>个人计划</text></view>
+      </view>
+      <button class="cst-add-btn" bindtap="goAddSchedule">+ 添加计划</button>
+    </view>
+
+    <!-- 计划列表 -->
+    <view wx:if="{{schList.length > 0}}" class="sch-list">
+      <view wx:for="{{schList}}" wx:key="id" class="sch-card">
+        <view class="sch-card-top">
+          <view class="sch-card-info" bindtap="showSchDetail" data-id="{{item.id}}">
+            <text class="sch-name">{{item.medicine_name}} {{item.dosage}}{{item.unit}}</text>
+            <text class="sch-time">{{item.times}}</text>
+            <text class="sch-info">{{schTab==='personal' ? '我自己' : (item.elder_nickname || '家人')}} · {{item.start_date}} ~ {{item.end_date}}</text>
+          </view>
+          <view class="sch-card-actions">
+            <button class="sch-edit-btn" data-id="{{item.id}}" catchtap="editSchedule">编辑</button>
+            <button class="sch-del-btn" data-id="{{item.id}}" catchtap="deleteSchedule">删除</button>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="elder-empty">暂无计划，点击右上添加</view>
+
+  </view>
+
+  <!-- 计划详情弹窗 -->
+  <van-popup wx:if="{{schDetail}}" show="{{true}}" round position="bottom" bind:close="closeSchDetail" custom-style="padding:32rpx;">
+    <view class="md-header">
+      <van-icon name="medel-o" size="48rpx" class="md-icon" />
+      <text class="md-title">{{schDetail.medicine_name}}</text>
+    </view>
+    <van-cell-group border="{{false}}">
+      <van-cell title="剂量" value="{{schDetail.dosage}}{{schDetail.unit}} {{schDetail.relationship ? '['+schDetail.relationship+']' : ''}}" />
+      <van-cell title="时间" value="{{schDetail.times}}" />
+      <van-cell title="总量" value="{{schDetail.total_quantity}}" />
+      <van-cell title="服药人" value="{{schTab==='personal' ? '我自己' : (schDetail.elder_nickname || '家人')}}" />
+      <van-cell title="起止" value="{{schDetail.startDate}} ~ {{schDetail.endDate}}" />
+      <van-cell title="状态" value="{{schDetail._isEnded ? '已结束' : (schDetail.is_active ? '进行中' : '已停用')}}" />
+    </van-cell-group>
+    <van-button type="default" block style="margin-top:24rpx;" bind:click="closeSchDetail">关闭</van-button>
+  </van-popup>
+
+  <!-- 编辑计划弹窗 -->
+  <van-popup wx:if="{{editSch}}" show="{{true}}" round position="bottom" bind:close="closeEditSch" custom-style="padding:32rpx;max-height:80vh;overflow-y:auto;">
+    <view class="edit-sch-title">编辑用药计划</view>
+    <view class="edit-sch-form">
+      <van-field label="剂量" type="digit" value="{{editDosage}}" bind:change="onEditDosage" placeholder="单次剂量" />
+      <van-field label="单位" value="{{editUnit}}" bind:change="onEditUnit" placeholder="粒" />
+      <van-field label="总量" type="number" value="{{editQty}}" bind:change="onEditQty" placeholder="药品总量" />
+      <van-field label="服药关系" value="{{editRel}}" bind:change="onEditRel" placeholder="不限/饭前/饭后" />
+      <van-field label="开始日期" value="{{editStart}}" bind:change="onEditStart" placeholder="2026-01-01" />
+      <van-field label="结束日期" value="{{editEnd}}" bind:change="onEditEnd" placeholder="2026-12-31 留空=无限期" />
+
+      <van-cell-group title="服药时间">
+        <view wx:for="{{editTimes}}" wx:key="idx" class="edit-time-row">
+          <van-field value="{{item}}" bind:change="onEditTimeChange" data-idx="{{index}}" placeholder="08:00" />
+          <van-button wx:if="{{editTimes.length > 1}}" type="danger" size="small" data-idx="{{index}}" bind:click="delEditTime">删</van-button>
+        </view>
+        <view style="padding:8rpx 16rpx;">
+          <van-button type="primary" size="small" plain icon="plus" bind:click="addEditTime">添加时间</van-button>
+        </view>
+      </van-cell-group>
+
+      <view style="padding:16rpx;">
+        <van-button type="primary" size="large" block loading="{{savingEdit}}" bind:click="saveEditSch">保存修改</van-button>
+      </view>
+    </view>
+  </van-popup>
+
+</view>

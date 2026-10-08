@@ -1,0 +1,21 @@
+<!-- 药品卡片组件 -->
+<view class="medicine-card {{clickable ? 'clickable' : ''}}" bindtap="onTap">
+  <view class="medicine-info">
+    <view class="medicine-name-row">
+      <text class="medicine-name">{{name}}</text>
+      <text wx:if="{{statusText}}" class="tag {{statusClass}}">{{statusText}}</text>
+    </view>
+    <view class="medicine-meta">
+      <text wx:if="{{specification}}" class="medicine-spec">{{specification}}</text>
+      <text wx:if="{{dosage > 0}}" class="medicine-dosage">{{dosage}}{{unit}}/次</text>
+      <text wx:if="{{manufacturer}}" class="medicine-manufacturer">{{manufacturer}}</text>
+    </view>
+    <view wx:if="{{stockWarning}}" class="stock-warning {{stockWarning === '已用完' ? 'danger' : ''}}">
+      <text>{{stockWarning}}</text>
+      <text wx:if="{{remainingCount >= 0}}">（剩余 {{remainingCount}}）</text>
+    </view>
+  </view>
+  <view wx:if="{{clickable}}" class="medicine-arrow">
+    <icon name="arrow-right" size="36rpx" />
+  </view>
+</view>

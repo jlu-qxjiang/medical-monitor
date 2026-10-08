@@ -1,0 +1,120 @@
+/* 用药历史样式 */
+.page-container {
+  min-height: 100vh;
+  padding: var(--spacing-md);
+  background: var(--color-bg);
+}
+
+/* 日期导航 */
+.date-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) 0;
+  margin-bottom: var(--spacing-md);
+}
+
+.date-arrow {
+  font-size: 48rpx;
+  color: var(--color-primary);
+  padding: var(--spacing-sm);
+  line-height: 1;
+}
+
+.date-picker {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.date-text {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.date-icon {
+  font-size: var(--font-size-base);
+}
+
+.day-summary {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+/* 历史记录 */
+.history-item {
+  padding: var(--spacing-md);
+  border-left: 6rpx solid var(--color-success);
+}
+
+.history-item.missed {
+  border-left-color: var(--color-danger);
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.history-time {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.time-circle {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-circle.green {
+  background: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.time-circle.red {
+  background: var(--color-danger-light);
+  color: var(--color-danger);
+}
+
+.history-time-label {
+  display: block;
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.history-time-of-day {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.history-medicine-row {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-xs) 0;
+  padding-left: 64rpx;
+}
+
+.medicine-name {
+  flex: 1;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.medicine-dose {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-right: var(--spacing-sm);
+}

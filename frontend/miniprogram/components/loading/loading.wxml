@@ -1,0 +1,15 @@
+<!-- 加载态组件 -->
+<view wx:if="{{visible}}" class="loading-wrapper {{fullscreen ? 'fullscreen' : ''}}">
+  <!-- 骨架屏模式 -->
+  <block wx:if="{{mode === 'skeleton'}}">
+    <view wx:for="{{skeletonArray}}" wx:key="index" class="skeleton-line {{index === 0 ? 'skeleton-line-short' : ''}}"></view>
+  </block>
+
+  <!-- Spinner 模式 -->
+  <block wx:else>
+    <view class="spinner-container">
+      <view class="spinner"></view>
+      <text wx:if="{{text}}" class="spinner-text">{{text}}</text>
+    </view>
+  </block>
+</view>

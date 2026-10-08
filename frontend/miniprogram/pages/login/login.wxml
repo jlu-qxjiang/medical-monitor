@@ -1,0 +1,68 @@
+<!-- 登录/注册页 -->
+<view class="auth-page">
+  <view class="auth-content">
+    <!-- 标题 -->
+    <view class="auth-header">
+      <text class="auth-title">{{isRegister ? '注册' : '登录'}}</text>
+      <text class="auth-sub">欢迎使用朝夕小叮</text>
+    </view>
+
+    <!-- 手机号 -->
+    <view class="auth-field">
+      <text class="auth-label">手机号码</text>
+      <input class="auth-input" type="number" maxlength="11" placeholder="请输入手机号" value="{{phone}}" bindinput="onPhoneInput" placeholder-class="ph" />
+    </view>
+
+    <!-- 昵称（仅注册） -->
+    <view wx:if="{{isRegister}}" class="auth-field">
+      <text class="auth-label">您的称呼</text>
+      <input class="auth-input" placeholder="如何称呼您" value="{{nickname}}" bindinput="onNickInput" placeholder-class="ph" />
+    </view>
+
+    <!-- 密码 -->
+    <view class="auth-field">
+      <text class="auth-label">登录密码</text>
+      <view class="auth-pwd-wrap">
+        <input class="auth-input auth-pwd-input" type="{{showPwd ? 'text' : 'password'}}" placeholder="{{isRegister ? '请设置密码（至少6位）' : '请输入密码（至少6位）'}}" value="{{password}}" bindinput="onPwdInput" placeholder-class="ph" />
+        <view class="auth-eye" bindtap="togglePwd">{{showPwd ? '👁' : '👁‍🗨'}}</view>
+      </view>
+    </view>
+
+    <!-- 确认密码（仅注册） -->
+    <view wx:if="{{isRegister}}" class="auth-field">
+      <text class="auth-label">确认密码</text>
+      <input class="auth-input" type="password" placeholder="请再次输入密码" value="{{password2}}" bindinput="onPwd2Input" placeholder-class="ph" />
+    </view>
+
+    <!-- 错误 -->
+    <view wx:if="{{errorMsg}}" class="auth-error">{{errorMsg}}</view>
+
+    <!-- 微信一键登录 -->
+    <button wx:if="{{!isRegister}}" class="auth-btn-wechat" bindtap="handleWechatLogin" loading="{{loading}}" disabled="{{loading}}">
+      微信一键登录
+    </button>
+
+    <view wx:if="{{!isRegister}}" class="auth-divider">或使用账号密码登录</view>
+
+    <!-- 登录按钮 -->
+    <button class="auth-btn-primary" bindtap="handleLogin" loading="{{loading}}" disabled="{{loading}}">
+      {{loading ? '请稍候...' : (isRegister ? '注册' : '登录')}}
+    </button>
+
+    <!-- 忘记密码 / 去注册 -->
+    <view wx:if="{{!isRegister}}" class="auth-links">
+      <text class="auth-forgot">忘记密码？</text>
+    </view>
+
+    <view wx:if="{{!isRegister}}" class="auth-switch-row">
+      <button class="auth-btn-switch" bindtap="handleRegister">
+        还没有账号？去注册
+      </button>
+    </view>
+    <view wx:else class="auth-switch-row">
+      <button class="auth-btn-switch" bindtap="handleRegister">
+        已有账号？去登录
+      </button>
+    </view>
+  </view>
+</view>

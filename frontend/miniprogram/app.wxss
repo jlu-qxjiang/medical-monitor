@@ -1,0 +1,458 @@
+/**
+ * 「按时吃药」全局样式
+ * 设计 Token：颜色 / 字体 / 间距 / 圆角 / 动效
+ */
+
+page {
+  /* ===== 颜色 ===== */
+  --color-primary: #0079FF;
+  --color-primary-dark: #0060CC;
+  --color-primary-light: #E8F3FF;
+  --color-danger: #FA5151;
+  --color-danger-light: #FFF0F0;
+  --color-warning: #FFC300;
+  --color-warning-light: #FFF9E6;
+  --color-success: #52C999;
+  --color-success-light: #E6F9F0;
+  --color-info: #10AEFF;
+  --color-info-light: #E6F5FF;
+  --color-bg: #F5F7FA;
+  --color-bg-white: #FFFFFF;
+  --color-text: #333333;
+  --color-text-secondary: #999999;
+  --color-text-muted: #CCCCCC;
+  --color-border: #EEEEEE;
+  --color-divider: #F0F0F0;
+
+  /* ===== 字号 ===== */
+  --font-size-xl: 40rpx;
+  --font-size-lg: 36rpx;
+  --font-size-md: 32rpx;
+  --font-size-base: 28rpx;
+  --font-size-sm: 24rpx;
+  --font-size-xs: 20rpx;
+
+  /* ===== 间距 ===== */
+  --spacing-xs: 8rpx;
+  --spacing-sm: 16rpx;
+  --spacing-md: 24rpx;
+  --spacing-lg: 32rpx;
+  --spacing-xl: 48rpx;
+
+  /* ===== 圆角 ===== */
+  --radius-sm: 8rpx;
+  --radius-md: 16rpx;
+  --radius-lg: 24rpx;
+  --radius-round: 9999rpx;
+
+  /* ===== 阴影 ===== */
+  --shadow-sm: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8rpx 24rpx rgba(0, 0, 0, 0.12);
+
+  /* ===== 页面基础 ===== */
+  background-color: var(--color-bg);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC',
+    'Microsoft YaHei', sans-serif;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+/* ===== 通用布局 ===== */
+.container {
+  min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.page-content {
+  padding: var(--spacing-md);
+}
+
+.section {
+  margin-bottom: var(--spacing-md);
+  background: var(--color-bg-white);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+}
+
+.section-title {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ===== 通用按钮 ===== */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 96rpx;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  border: none;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.btn::after {
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+}
+
+.btn-primary:active {
+  background-color: var(--color-primary-dark);
+}
+
+.btn-danger {
+  background-color: var(--color-danger);
+  color: #FFFFFF;
+}
+
+.btn-danger:active {
+  background-color: #E04848;
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border: 2rpx solid var(--color-primary);
+}
+
+.btn-outline:active {
+  background-color: var(--color-primary-light);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--color-text-secondary);
+}
+
+.btn-ghost:active {
+  background-color: var(--color-bg);
+}
+
+.btn-small {
+  height: 64rpx;
+  font-size: var(--font-size-sm);
+  padding: 0 var(--spacing-md);
+  border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+  height: 112rpx;
+  font-size: var(--font-size-lg);
+  border-radius: var(--radius-lg);
+}
+
+.btn[disabled] {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.btn-loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* ===== 通用卡片 ===== */
+.card {
+  background: var(--color-bg-white);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.card:active {
+  background-color: #F9F9F9;
+}
+
+/* ===== 通用表单 ===== */
+.form-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.form-label {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-xs);
+  display: block;
+}
+
+.form-input {
+  width: 100%;
+  height: 88rpx;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--spacing-md);
+  font-size: var(--font-size-base);
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 160rpx;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-base);
+  box-sizing: border-box;
+}
+
+.form-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 88rpx;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--spacing-md);
+  box-sizing: border-box;
+}
+
+.form-picker .placeholder {
+  color: var(--color-text-muted);
+}
+
+.form-error {
+  font-size: var(--font-size-sm);
+  color: var(--color-danger);
+  margin-top: var(--spacing-xs);
+}
+
+/* ===== 通用标签 ===== */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 16rpx;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+}
+
+.tag-green {
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+}
+
+.tag-yellow {
+  background-color: var(--color-warning-light);
+  color: #B8860B;
+}
+
+.tag-red {
+  background-color: var(--color-danger-light);
+  color: var(--color-danger);
+}
+
+.tag-blue {
+  background-color: var(--color-info-light);
+  color: var(--color-info);
+}
+
+/* ===== 通用分割线 ===== */
+.divider {
+  height: 1rpx;
+  background-color: var(--color-divider);
+  margin: var(--spacing-sm) 0;
+}
+
+/* ===== 通用提示 ===== */
+.toast-error {
+  background: var(--color-danger-light);
+  color: var(--color-danger);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+}
+
+.toast-error .icon {
+  margin-right: var(--spacing-xs);
+}
+
+/* ===== 无障碍：老人端大字体模式 ===== */
+.elder-mode {
+  --font-size-base: 30rpx;
+  --font-size-md: 34rpx;
+  --font-size-lg: 38rpx;
+  --font-size-xl: 44rpx;
+  --spacing-md: 28rpx;
+  --radius-md: 18rpx;
+  --radius-lg: 28rpx;
+}
+
+.elder-mode .btn {
+  font-size: var(--font-size-lg);
+  height: 100rpx;
+}
+
+/* ===== 工具类 ===== */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+
+/* ===== 骨架屏 ===== */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes skeleton-loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ===== 安全区域 ===== */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ===== 老人端专用：超大操作区 ===== */
+.elder-action-area {
+  padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.elder-action-btn {
+  width: 100%;
+  height: 132rpx;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+}
+
+.elder-action-btn .icon {
+  font-size: var(--font-size-xl);
+  margin-right: var(--spacing-sm);
+}
+
+/* ======== UI 质感增强 ======== */
+
+/* 页面加载淡入 */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.card, .elder-card, .plan-card, .sch-card, .med-card, .my-med-card,
+.reminder-block, .reminder-section, .family-card, .admin-stats .a-stat {
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+/* 弹性弹入 — 弹窗/详情卡片 */
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.modal-card, .dialog-container {
+  animation: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* 勾选弹跳 — 确认吃药完成 */
+@keyframes checkPop {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.check-circle.checked {
+  animation: checkPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* 柔和呼吸 — 待处理提醒卡片 */
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(7, 193, 96, 0.4); }
+  50% { box-shadow: 0 0 0 12rpx rgba(7, 193, 96, 0); }
+}
+
+.reminder-section.breathing {
+  animation: breathe 2s ease-in-out infinite;
+}
+
+/* 按钮反馈 */
+button { transition: all 0.15s ease; }
+button:active { transform: scale(0.96); opacity: 0.85; }
+
+/* 进度条流光 */
+.progress-fill {
+  background: linear-gradient(90deg, #0079FF, #40A9FF, #0079FF);
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 已确认项划线 */
+.rb-med.taken .rb-med-name { text-decoration: line-through; color: #999; }
+
+/* 卡片按压效果 */
+.card:active, .elder-card:active { transform: scale(0.98); }
+
+/* 遮罩淡入 */
+@keyframes maskFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-mask, .dialog-overlay {
+  animation: maskFadeIn 0.25s ease-out;
+}
+
+/* 老人端：动效降级 */
+.elder-mode .reminder-section.breathing {
+  animation: none;
+}

@@ -1,0 +1,51 @@
+<!-- 加入家庭组页 -->
+<view class="page-container">
+
+  <!-- 加入表单 -->
+  <view wx:if="{{!joinedFamily}}" class="join-form">
+    <view class="form-intro">
+      <text class="intro-icon">🔗</text>
+      <text class="intro-title">加入家庭组</text>
+      <text class="intro-desc">输入家庭组管理员分享的邀请码，即可加入家庭组</text>
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">邀请码</text>
+      <input
+        class="form-input code-input"
+        placeholder="输入6位邀请码"
+        value="{{inviteCode}}"
+        bindinput="handleCodeInput"
+        type="number"
+        maxlength="6"
+        focus
+      />
+      <view wx:if="{{errorMsg}}" class="form-error">{{errorMsg}}</view>
+    </view>
+
+    <view class="join-actions">
+      <button
+        class="btn btn-primary btn-lg"
+        bindtap="handleSubmit"
+        loading="{{isSubmitting}}"
+        disabled="{{isSubmitting}}"
+      >
+        {{isSubmitting ? '加入中...' : '加入家庭组'}}
+      </button>
+      <button class="btn btn-outline" bindtap="handleScanCode">
+        📷 扫描二维码加入
+      </button>
+    </view>
+  </view>
+
+  <!-- 加入成功 -->
+  <view wx:else class="join-success">
+    <view class="success-icon">✅</view>
+    <text class="success-title">加入成功！</text>
+    <text class="success-msg">{{joinedFamily.message || '欢迎加入家庭组'}}</text>
+    <button class="btn btn-primary btn-lg mt-lg" bindtap="handleGoHome">
+      进入首页
+    </button>
+  </view>
+
+</view>

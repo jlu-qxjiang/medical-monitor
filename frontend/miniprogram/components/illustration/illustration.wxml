@@ -1,0 +1,46 @@
+<view class="illu-wrap" style="width:{{width}};">
+  <view class="illu-scene illu-{{name}}">
+    <block wx:if="{{name === 'empty-reminder'}}">
+      <view class="illu-bottle">
+        <view class="illu-bottle-cap"></view>
+        <view class="illu-bottle-body">
+          <view class="illu-bottle-label"></view>
+        </view>
+      </view>
+      <view class="illu-pills">
+        <view class="illu-pill illu-pill-1"></view>
+        <view class="illu-pill illu-pill-2"></view>
+      </view>
+    </block>
+    <block wx:elif="{{name === 'empty-medicine'}}">
+      <view class="illu-cabinet">
+        <view class="illu-cabinet-shelf" wx:for="{{[1,2]}}" wx:key="*this"></view>
+      </view>
+    </block>
+    <block wx:elif="{{name === 'empty-family'}}">
+      <view class="illu-house">
+        <view class="illu-house-roof"></view>
+        <view class="illu-house-body">
+          <view class="illu-house-door"></view>
+        </view>
+      </view>
+    </block>
+    <block wx:elif="{{name === 'welcome'}}">
+      <view class="illu-heart-wrap">
+        <view class="illu-heart"></view>
+        <view class="illu-heart-pulse"></view>
+      </view>
+    </block>
+    <block wx:elif="{{name === 'all-done'}}">
+      <view class="illu-check-big">
+        <view class="illu-check-circle-big"></view>
+      </view>
+      <view class="illu-sparkles">
+        <view class="illu-spark" wx:for="{{[1,2,3,4]}}" wx:key="*this"></view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="illu-error-icon">!</view>
+    </block>
+  </view>
+</view>

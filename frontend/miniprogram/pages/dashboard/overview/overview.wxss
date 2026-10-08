@@ -1,0 +1,45 @@
+/* 用药详情页 */
+.pg { min-height:100vh; background:#F5F7FA; padding:24rpx; }
+.hint { text-align:center; padding:120rpx 40rpx; color:#999; }
+
+/* 信息卡片 */
+.ov-card { background:#fff; border-radius:20rpx; padding:32rpx 28rpx 24rpx; margin-bottom:24rpx; box-shadow:0 2rpx 8rpx rgba(0,0,0,0.04); }
+.ov-name { display:block; text-align:center; font-size:42rpx; font-weight:700; color:#1A1A1A; }
+.ov-date { display:block; text-align:center; font-size:28rpx; color:#999; margin-top:8rpx; }
+
+/* 统计栏 */
+.ov-stats { display:flex; justify-content:space-around; margin-top:28rpx; padding-top:24rpx; border-top:1rpx solid #f0f0f0; }
+.ov-stat { text-align:center; }
+.ovs-num { display:block; font-size:40rpx; font-weight:700; color:#1A1A1A; }
+.ovs-num.green { color:#52C999; }
+.ovs-num.orange { color:#FF9500; }
+.ovs-num.blue { color:#0079FF; }
+.ovs-label { display:block; font-size:24rpx; color:#999; margin-top:4rpx; }
+
+/* 分组 */
+.ov-group { margin-bottom:24rpx; }
+.ov-group-title { display:block; font-size:28rpx; font-weight:600; color:#666; margin-bottom:12rpx; padding-left:4rpx; }
+
+/* 任务卡片 */
+.ov-task { background:#fff; border-radius:16rpx; padding:24rpx; margin-bottom:3rpx; box-shadow:0 2rpx 8rpx rgba(0,0,0,0.03); }
+.ov-task-head { margin-bottom:14rpx; }
+
+.ot-tag { display:inline-block; padding:6rpx 20rpx; border-radius:14rpx; font-size:24rpx; font-weight:600; }
+.tag-done { background:#E6F9F0; color:#52C999; }
+.tag-overdue { background:#FFEBEE; color:#C62828; }
+.tag-skip { background:#ECEFF1; color:#78909C; }
+.tag-wait { background:#F5F5F5; color:#999; }
+
+.ot-med { display:flex; align-items:center; padding:14rpx 0; }
+.ot-med:not(:last-child) { border-bottom:1rpx solid #f8f8f8; }
+.ot-med-name { font-size:32rpx; font-weight:600; color:#1A1A1A; flex:1; }
+.ot-med-dose { font-size:28rpx; color:#999; }
+
+.ot-action { text-align:right; margin-top:16rpx; padding-top:16rpx; border-top:1rpx solid #f5f5f5; }
+.ot-btn-confirm { display:inline-block; padding:12rpx 28rpx; border-radius:12rpx; font-size:26rpx; font-weight:600; background:#E8F3FF; color:#0079FF; border:none; }
+.ot-btn-confirm::after { border:none; }
+.ot-btn-confirm:active { background:#D6E8FD; }
+
+/* 底部 */
+.ov-bottom { text-align:center; padding:32rpx 0; }
+.ov-bottom text { font-size:28rpx; color:#0079FF; }

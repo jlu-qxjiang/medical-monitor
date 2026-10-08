@@ -1,0 +1,93 @@
+<view class="pg">
+  <view wx:if="{{isLoading}}" class="hint">加载中...</view>
+
+  <view wx:else>
+    <!-- 已有计划列表 -->
+    <view wx:if="{{schedules.length>0}}" class="list">
+      <view wx:for="{{schedules}}" wx:key="id" class="card" bindtap="showDetail" data-id="{{item.id}}">
+        <text class="ct">{{item.medicine_name}} {{item.dosage}}{{item.unit}}</text>
+        <text class="cs">{{item.times}} · {{item.start_date}}~{{item.end_date}}</text>
+        <text class="del" catchtap="handleDelete" data-id="{{item.id}}">删除</text>
+      </view>
+    </view>
+    <view wx:else class="hint">还没有用药计划</view>
+
+    <!-- 添加表单 - 对齐Web版 -->
+    <view class="form">
+      <view class="ft">添加用药计划</view>
+
+      <!-- 服药老人（仅家庭模式） -->
+      <view wx:if="{{schTab!=='personal'}}" class="fg">
+        <text class="fl">服药老人</text>
+        <picker mode="selector" range="{{elderNames}}" bindchange="onElderChange">
+          <view class="pick"><text class="{{selElderName?'':'ph'}}">{{selElderName||'请选择老人'}}</text></view>
+        </picker>
+      </view>
+
+      <!-- 药品 -->
+      <view class="fg">
+        <text class="fl">药品</text>
+        <view wx:if="{{medicines.length===0}}" class="ph">暂无药品，请先去药品Tab添加</view>
+        <view wx:else class="tag-list">
+          <view wx:for="{{medicines}}" wx:key="id" class="tag {{selMedId===item.id?'on':''}}" bindtap="pickMed" data-id="{{item.id}}" data-name="{{item.name}}">{{item.name}}</view>
+        </view>
+      </view>
+
+      <!-- 总数量 -->
+      <view class="fg">
+        <text class="fl">药品总数量</text>
+        <input class="inp" type="number" value="{{formQty}}" bindinput="onQtyInput"/>
+      </view>
+
+      <!-- 单次剂量 + 单位 -->
+      <view class="fg">
+        <text class="fl">单次服用剂量</text>
+        <view class="dose-row">
+          <input class="inp" style="flex:2" type="digit" value="{{formDosage}}" bindinput="onDosageInput"/>
+          <picker mode="selector" range="{{units}}" bindchange="onUnitChange">
+            <view class="pick" style="flex:1;text-align:center">{{formUnit}}</view>
+          </picker>
+        </view>
+      </view>
+
+      <!-- 服药关系 -->
+      <view class="fg">
+        <text class="fl">服药关系</text>
+        <picker mode="selector" range="{{rels}}" bindchange="onRelChange">
+          <view class="pick"><text class="{{formRel?'':'ph'}}">{{formRel||'不限'}}</text></view>
+        </picker>
+      </view>
+
+      <!-- 服药时间（多个） -->
+      <view class="fg">
+        <text class="fl">服药时间</text>
+        <view wx:for="{{formTimes}}" wx:key="idx" class="time-row">
+          <picker mode="time" value="{{item}}" bindchange="onTimeItemChange" data-idx="{{index}}">
+            <view class="pick" style="flex:1">{{item||'选择时间'}}</view>
+          </picker>
+          <text wx:if="{{formTimes.length>1}}" class="del-time" bindtap="delTime" data-idx="{{index}}">✕</text>
+        </view>
+        <text class="add-time" bindtap="addTime">+ 添加时间</text>
+      </view>
+
+      <!-- 开始日期 -->
+      <view class="fg">
+        <text class="fl">开始日期</text>
+        <picker mode="date" value="{{formStart}}" bindchange="onStartChange">
+          <view class="pick"><text>{{formStart||'选择日期'}}</text></view>
+        </picker>
+      </view>
+
+      <!-- 结束日期 -->
+      <view class="fg">
+        <text class="fl">结束日期</text>
+        <picker mode="date" value="{{formEnd}}" bindchange="onEndChange">
+          <view class="pick"><text>{{formEnd||'选择日期'}}</text></view>
+        </picker>
+      </view>
+
+      <button class="btn" bindtap="handleSubmit">保存计划</button>
+      <text wx:if="{{addErr}}" class="err">{{addErr}}</text>
+    </view>
+  </view>
+</view>

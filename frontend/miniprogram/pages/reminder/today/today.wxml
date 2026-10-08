@@ -1,0 +1,101 @@
+<!-- 今日用药页（老人端） -->
+<view class="page-container elder-mode">
+
+  <!-- 加载态 -->
+  <loading-box visible="{{isLoading}}" mode="skeleton" skeletonRows="{{4}}" />
+
+  <!-- 错误态 -->
+  <view wx:if="{{loadError}}" class="error-container">
+    <van-empty image="error" description="加载失败">
+      <van-button type="primary" size="small" bind:click="handleRetry">重新加载</van-button>
+    </van-empty>
+  </view>
+
+  <!-- 正常态 -->
+  <view wx:else>
+    <!-- 日期标题 -->
+    <view class="today-header">
+      <text class="today-title">{{dateLabel}} 用药计划</text>
+    </view>
+
+    <!-- 提醒列表 -->
+    <view wx:if="{{reminders.length > 0}}" class="reminder-list">
+      <view
+        wx:for="{{reminders}}"
+        wx:key="id"
+        class="reminder-section {{item._allTaken ? 'completed' : ''}}"
+      >
+        <!-- 时间标题 -->
+        <view class="reminder-time-header">
+          <view class="time-badge">
+            <text class="time-badge-text">{{item.time_label}}</text>
+          </view>
+          <van-tag wx:if="{{item._allTaken}}" type="success" size="large">全部已服用</van-tag>
+        </view>
+
+        <!-- 药品清单 -->
+        <view class="medicine-items">
+          <view
+            wx:for="{{item.items}}"
+            wx:key="id"
+            class="medicine-item {{item.taken ? 'taken' : ''}}"
+          >
+            <view class="medicine-left">
+              <view class="check-circle {{item.taken ? 'checked' : ''}}">
+                <text wx:if="{{item.taken}}">✓</text>
+              </view>
+              <view class="medicine-detail">
+                <text class="medicine-name">{{item.medicine_name}}</text>
+                <text class="medicine-dose">{{item.dosage}}{{item.unit}}</text>
+              </view>
+            </view>
+            <text wx:if="{{item.taken && item.taken_at}}" class="taken-time">{{item.taken_at}}</text>
+          </view>
+        </view>
+
+        <!-- 操作按钮区 -->
+        <view wx:if="{{!item._allTaken}}" class="action-area">
+          <button class="elder-confirm-btn" data-reminder="{{item}}" bindtap="handleConfirm">
+            已服用
+          </button>
+          <view class="aux-actions">
+            <button class="elder-aux-btn" data-reminder="{{item}}" bindtap="handleSkip">跳过</button>
+            <button class="elder-aux-btn" data-reminder="{{item}}" bindtap="handleMiss">未服用</button>
+          </view>
+        </view>
+
+        <!-- 已服用：撤销 -->
+        <view wx:if="{{item._allTaken}}" class="revoke-area">
+          <button class="revoke-btn" data-reminder="{{item}}" bindtap="handleRevoke">撤销确认</button>
+          <text class="revoke-hint">确认后5分钟内可撤销</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空态 -->
+    <van-empty wx:else image="search" description="今天没有用药计划" />
+  </view>
+
+  <!-- 确认弹窗 -->
+  <confirm-dialog
+    visible="{{showConfirmDialog}}"
+    title="确认用药"
+    medicineList="{{confirmItems}}"
+    confirmText="确认已服用"
+    cancelText="再想想"
+    loading="{{dialogLoading}}"
+    bind:confirm="handleDialogConfirm"
+    bind:cancel="handleDialogCancel"
+  />
+
+  <!-- 跳过原因 -->
+  <van-action-sheet
+    show="{{showSkipDialog}}"
+    title="请选择跳过原因"
+    actions="{{skipActions}}"
+    cancel-text="取消"
+    bind:select="handleSkipReasonSelect"
+    bind:close="handleSkipCancel"
+  />
+
+</view>

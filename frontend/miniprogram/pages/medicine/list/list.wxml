@@ -1,0 +1,132 @@
+<view class="pg">
+
+  <!-- 老人 -->
+  <view wx:if="{{isElder}}" class="elder-hint">
+    <text class="big-icon">💊</text>
+    <text class="big-text">您的用药由子女管理</text>
+  </view>
+
+  <!-- 子女 -->
+  <view wx:else>
+    <!-- Tab -->
+    <view class="med-tabs">
+      <view class="med-tab {{medTab==='family'?'active':''}}" bindtap="switchTab" data-tab="family"><text>家庭药品</text></view>
+      <view class="med-tab {{medTab==='personal'?'active':''}}" bindtap="switchTab" data-tab="personal"><text>个人药品</text></view>
+    </view>
+    <text class="med-tab-hint">{{medTab==='family' ? '家庭药品全家共用' : '个人药品仅本人可见'}}</text>
+
+    <!-- 折叠表单 -->
+    <view class="med-form {{showForm ? '' : 'collapsed'}}">
+      <view class="med-form-head" bindtap="toggleForm">
+        <text class="mfh-title">添加药品</text>
+        <text class="mfh-arrow">{{showForm ? '▲' : '▼'}}</text>
+      </view>
+      <view wx:if="{{showForm}}" class="med-form-body">
+        <view class="mf-field">
+          <text class="mf-label"><text class="mf-required">*</text>药品名称</text>
+          <input class="mf-input" placeholder="请输入药品名称" value="{{formName}}" bindinput="onNameInput" />
+        </view>
+        <view class="mf-field">
+          <text class="mf-label">规格</text>
+          <input class="mf-input" placeholder="如 30mg×7片" value="{{formSpec}}" bindinput="onSpecInput" />
+        </view>
+        <view class="mf-field">
+          <text class="mf-label">厂家</text>
+          <input class="mf-input" placeholder="厂家名称" value="{{formMfr}}" bindinput="onMfrInput" />
+        </view>
+        <view class="mf-field">
+          <text class="mf-label">备注</text>
+          <input class="mf-input" placeholder="填写用法服用注意" value="{{formNote}}" bindinput="onNoteInput" />
+        </view>
+        <view class="mf-field">
+          <text class="mf-label">库存剩余数量</text>
+          <input class="mf-input" type="number" placeholder="30" value="{{formStock}}" bindinput="onStockInput" />
+        </view>
+        <view class="mf-field">
+          <text class="mf-label">库存预警阈值</text>
+          <input class="mf-input" type="number" placeholder="低于此数量提醒，默认7" value="{{formAlert}}" bindinput="onAlertInput" />
+        </view>
+        <view class="mf-field">
+          <text class="mf-label">有效期</text>
+          <picker mode="date" value="{{formExpiry}}" bindchange="onExpiryChange">
+            <view class="mf-input mf-picker">{{formExpiry || '请选择有效期'}}</view>
+          </picker>
+        </view>
+        <view wx:if="{{addError}}" class="med-err">{{addError}}</view>
+        <button class="med-add-btn" bindtap="saveMed" loading="{{saving}}">添加</button>
+      </view>
+    </view>
+
+    <!-- 搜索 + 计数 -->
+    <view class="med-search-bar">
+      <view class="med-search-input-wrap">
+        <input class="med-search-input" placeholder="搜索药品" value="{{keyword}}" bindinput="onKeywordInput" />
+        <text class="med-search-icon">🔍</text>
+      </view>
+      <text class="med-search-count">共{{medicines.length}}种药品</text>
+    </view>
+
+    <!-- 药品列表 -->
+    <view wx:if="{{isLoading}}" class="med-loading">加载中...</view>
+    <van-empty wx:elif="{{filteredMeds.length===0}}" image="search" description="没有匹配的药品" />
+    <view wx:else class="med-list">
+      <view wx:for="{{filteredMeds}}" wx:key="id" class="med-item">
+        <view class="med-item-body" bindtap="showDetail" data-id="{{item.id}}">
+          <view class="med-item-top">
+            <text class="med-item-name">{{item.name}}</text>
+            <view wx:if="{{item._expired}}" class="med-tag tag-expired">已过期</view>
+            <view wx:elif="{{item._lowStock}}" class="med-tag tag-low">库存不足</view>
+          </view>
+          <text class="med-item-meta">{{item.specification || '-'}}</text>
+          <view class="med-item-stock">
+            <text>剩余</text>
+            <text class="mis-num">{{item.stock_remaining || 0}}</text>
+            <text>片 / 初始总量</text>
+            <text class="mis-num">{{item.stock_total || item.stock_remaining || 0}}</text>
+            <text>片</text>
+          </view>
+        </view>
+        <view class="med-item-more" catchtap="onMedMore" data-item="{{item}}">•••</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 药品详情弹窗 -->
+  <van-popup wx:if="{{detailMed}}" show="{{true}}" round bind:close="closeDetail" custom-style="background:transparent;">
+    <view class="detail-modal">
+      <view class="detail-card" catchtap="">
+        <text class="detail-title">药品详情</text>
+
+        <view class="detail-row"><text class="dr-label">药品名称</text><text class="dr-val">{{detailMed.name}}</text></view>
+        <view class="detail-row"><text class="dr-label">规格</text><text class="dr-val">{{detailMed.specification || '-'}}</text></view>
+        <view class="detail-row"><text class="dr-label">生产厂家</text><text class="dr-val">{{detailMed.manufacturer || '-'}}</text></view>
+        <view class="detail-row"><text class="dr-label">服用备注</text><text class="dr-val">{{detailMed.notes || '无'}}</text></view>
+        <view class="detail-row"><text class="dr-label">剩余库存</text><text class="dr-val">{{detailMed.stock_remaining || 0}}</text></view>
+        <view class="detail-row"><text class="dr-label">初始总量</text><text class="dr-val">{{detailMed.stock_total || detailMed.stock_remaining || 0}}</text></view>
+        <view class="detail-row"><text class="dr-label">有效期</text><text class="dr-val">{{detailMed.expiry || '未设置'}}</text></view>
+
+        <view class="detail-btns">
+          <button class="dt-btn-edit" bindtap="detailToEdit">编辑</button>
+          <button class="dt-btn-close" bindtap="closeDetail">关闭</button>
+        </view>
+      </view>
+    </view>
+  </van-popup>
+
+  <!-- 编辑库存弹窗 -->
+  <van-popup wx:if="{{editingStock}}" show="{{true}}" round close-on-click-overlay bind:close="closeStockEdit" custom-style="background:transparent;">
+    <view class="stock-modal">
+      <view class="stock-modal-card" catchtap="">
+        <view class="sm-close" bindtap="closeStockEdit">✕</view>
+        <text class="sm-title">编辑库存</text>
+        <text class="sm-med-name">{{editingStock.name}}</text>
+        <view class="sm-row"><text class="sm-label">现存量</text><text class="sm-val readonly">{{editingStock.stock_remaining}}</text></view>
+        <view class="sm-row"><text class="sm-label">用药总量</text><text class="sm-val readonly">{{editingStock.stock_total || editingStock.stock_remaining}}</text></view>
+        <view class="sm-row"><text class="sm-label">新添加药品数</text><input class="sm-input" type="number" placeholder="0" value="{{editStockVal}}" bindinput="onStockValInput" /></view>
+        <view wx:if="{{editStockVal && editStockVal > 0}}" class="sm-preview"><text>添加后：现有量 {{editingStock.stock_remaining + editStockVal * 1}} | 用药总量 {{(editingStock.stock_total || editingStock.stock_remaining) + editStockVal * 1}}</text></view>
+        <button class="sm-btn" bindtap="saveStock" loading="{{savingStock}}">保存</button>
+      </view>
+    </view>
+  </van-popup>
+
+</view>

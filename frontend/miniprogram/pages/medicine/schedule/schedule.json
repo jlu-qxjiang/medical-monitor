@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "用药计划",
+  "usingComponents": {
+    "loading-box": "/components/loading/loading",
+    "empty-state": "/components/empty-state/empty-state"
+  }
+}

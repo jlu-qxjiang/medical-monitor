@@ -1,0 +1,218 @@
+/* 今日用药页 — 老人端 */
+
+.page-container {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: var(--spacing-md);
+  padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
+  background: var(--color-bg);
+}
+
+/* 日期标题 */
+.today-header {
+  padding: var(--spacing-md) 0;
+  margin-bottom: var(--spacing-md);
+}
+
+.today-title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* 提醒列表 */
+.reminder-list {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.reminder-section {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--color-bg-white);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.reminder-section.completed {
+  opacity: 0.7;
+}
+
+/* 时间头部 */
+.reminder-time-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  border-bottom: 1rpx solid var(--color-divider);
+}
+
+.time-badge {
+  background: var(--color-primary-light);
+  padding: 8rpx 24rpx;
+  border-radius: var(--radius-round);
+}
+
+.time-badge-text {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* 药品清单 */
+.medicine-items {
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.medicine-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) 0;
+}
+
+.medicine-item:not(:last-child) {
+  border-bottom: 1rpx solid var(--color-divider);
+}
+
+.medicine-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.check-circle {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  border: 3rpx solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.check-circle.checked {
+  background: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.check-circle text {
+  font-size: var(--font-size-md);
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.medicine-detail {
+  flex: 1;
+  min-width: 0;
+}
+
+.medicine-name {
+  display: block;
+  font-size: 34rpx;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.medicine-dose {
+  display: block;
+  font-size: 28rpx;
+  color: var(--color-text-secondary);
+  margin-top: 6rpx;
+}
+
+.taken-time {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+/* 操作按钮区 */
+.action-area {
+  padding: var(--spacing-md);
+}
+
+.elder-confirm-btn {
+  width: 100%;
+  height: 96rpx;
+  border-radius: var(--radius-lg);
+  font-size: 36rpx;
+  font-weight: 700;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.elder-confirm-btn::after {
+  border: none;
+}
+
+.elder-confirm-btn:active {
+  background: var(--color-primary-dark);
+}
+
+.aux-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.elder-aux-btn {
+  width: 100%;
+  height: 76rpx;
+  border-radius: var(--radius-md);
+  font-size: 28rpx;
+  background: var(--color-bg);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid var(--color-border);
+}
+
+.elder-aux-btn::after {
+  border: none;
+}
+
+.elder-aux-btn:active {
+  background: var(--color-divider);
+}
+
+/* 撤销区 */
+.revoke-area {
+  padding: var(--spacing-md);
+  text-align: center;
+}
+
+.revoke-btn {
+  background: transparent;
+  color: var(--color-primary);
+  font-size: var(--font-size-base);
+  border: none;
+  padding: var(--spacing-xs) var(--spacing-md);
+}
+
+.revoke-btn::after {
+  border: none;
+}
+
+.revoke-hint {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-xs);
+}
+
+/* 错误态 */
+.error-container {
+  padding-top: 120rpx;
+}

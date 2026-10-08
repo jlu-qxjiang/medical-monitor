@@ -1,0 +1,119 @@
+/* 创建家庭组样式 */
+.page-container {
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+  background: var(--color-bg);
+}
+
+/* 表单介绍 */
+.form-intro {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding-top: var(--spacing-xl);
+}
+
+.intro-icon {
+  font-size: 80rpx;
+  display: block;
+  margin-bottom: var(--spacing-md);
+}
+
+.intro-title {
+  display: block;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.intro-desc {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  max-width: 500rpx;
+  margin: 0 auto;
+}
+
+/* 表单 */
+.create-form .form-group {
+  margin-bottom: var(--spacing-xl);
+}
+
+/* 创建成功 */
+.create-success {
+  text-align: center;
+  padding-top: 80rpx;
+}
+
+.success-icon {
+  font-size: 120rpx;
+  margin-bottom: var(--spacing-md);
+}
+
+.success-title {
+  display: block;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.success-family-name {
+  display: block;
+  font-size: var(--font-size-lg);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-xl);
+}
+
+.invite-section {
+  background: var(--color-bg-white);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.invite-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.invite-code-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.invite-code {
+  font-size: 64rpx;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 12rpx;
+  font-family: 'Courier New', monospace;
+}
+
+.copy-btn {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  background: var(--color-primary-light);
+  border-radius: var(--radius-sm);
+  padding: 8rpx 24rpx;
+  border: none;
+  height: 56rpx;
+  line-height: 56rpx;
+}
+
+.copy-btn::after {
+  border: none;
+}
+
+.invite-hint {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-xs);
+}

@@ -1,0 +1,112 @@
+<!-- 添加药品页 -->
+<view class="page-container">
+  <view class="form-container">
+
+    <!-- 药品名称 -->
+    <view class="form-group">
+      <text class="form-label">药品名称 <text class="required">*</text></text>
+      <input
+        class="form-input"
+        placeholder="例如：硝苯地平缓释片"
+        value="{{form.name}}"
+        data-field="name"
+        bindinput="handleFieldInput"
+        maxlength="50"
+      />
+      <view wx:if="{{errors.name}}" class="form-error">{{errors.name}}</view>
+    </view>
+
+    <!-- 规格 -->
+    <view class="form-group">
+      <text class="form-label">规格</text>
+      <input
+        class="form-input"
+        placeholder="例如：30mg×7片"
+        value="{{form.specification}}"
+        data-field="specification"
+        bindinput="handleFieldInput"
+      />
+    </view>
+
+    <!-- 厂家 -->
+    <view class="form-group">
+      <text class="form-label">生产厂家</text>
+      <input
+        class="form-input"
+        placeholder="例如：拜耳医药"
+        value="{{form.manufacturer}}"
+        data-field="manufacturer"
+        bindinput="handleFieldInput"
+      />
+    </view>
+
+    <!-- 备注 -->
+    <view class="form-group">
+      <text class="form-label">备注</text>
+      <textarea
+        class="form-textarea"
+        placeholder="如：饭后服用，避免与葡萄柚同食"
+        value="{{form.notes}}"
+        data-field="notes"
+        bindinput="handleFieldInput"
+        maxlength="200"
+      />
+    </view>
+
+    <!-- 初始库存 -->
+    <view class="form-group">
+      <text class="form-label">初始库存</text>
+      <view class="stock-row">
+        <view class="stock-col">
+          <text class="stock-label">总数量</text>
+          <input
+            class="form-input stock-input"
+            type="number"
+            placeholder="0"
+            value="{{form.initial_stock.total_count}}"
+            data-field="total_count"
+            bindinput="handleStockInput"
+          />
+        </view>
+        <view class="stock-col">
+          <text class="stock-label">预警阈值</text>
+          <input
+            class="form-input stock-input"
+            type="number"
+            placeholder="0"
+            value="{{form.initial_stock.alert_threshold}}"
+            data-field="alert_threshold"
+            bindinput="handleStockInput"
+          />
+        </view>
+      </view>
+    </view>
+
+    <!-- 照片上传 -->
+    <view class="form-group">
+      <text class="form-label">药品照片</text>
+      <view wx:if="{{photoPath}}" class="photo-preview">
+        <image class="photo-img" src="{{photoPath}}" mode="aspectFill" />
+        <view class="photo-remove" bindtap="handleRemovePhoto">✕</view>
+      </view>
+      <view wx:elif="{{photoUrl}}" class="photo-preview">
+        <image class="photo-img" src="{{photoUrl}}" mode="aspectFill" />
+        <view class="photo-remove" bindtap="handleRemovePhoto">✕</view>
+      </view>
+      <view wx:else class="photo-add" bindtap="handleChoosePhoto">
+        <text class="photo-add-icon">📷</text>
+        <text class="photo-add-text">拍摄药盒</text>
+      </view>
+    </view>
+
+    <!-- 提交按钮 -->
+    <button
+      class="btn btn-primary btn-lg"
+      bindtap="handleSubmit"
+      loading="{{isSubmitting}}"
+      disabled="{{isSubmitting}}"
+    >
+      {{isEdit ? '保存修改' : '添加药品'}}
+    </button>
+  </view>
+</view>

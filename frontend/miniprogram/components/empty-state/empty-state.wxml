@@ -1,0 +1,14 @@
+<!-- 空状态组件 -->
+<view wx:if="{{visible}}" class="empty-state">
+  <illustration wx:if="{{illustration}}" name="{{illustration}}" width="320rpx" />
+  <view wx:else class="empty-icon">{{icon}}</view>
+  <text class="empty-title">{{title}}</text>
+  <text wx:if="{{description}}" class="empty-desc">{{description}}</text>
+  <button
+    wx:if="{{showAction && actionText}}"
+    class="empty-action btn btn-primary"
+    bindtap="onAction"
+  >
+    {{actionText}}
+  </button>
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "药品记录",
+  "usingComponents": {
+    "van-popup": "@vant/weapp/popup/index"
+  }
+}

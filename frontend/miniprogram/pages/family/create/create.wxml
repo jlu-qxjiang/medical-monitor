@@ -1,0 +1,55 @@
+<!-- 创建家庭组页 -->
+<view class="page-container">
+
+  <!-- 创建表单 -->
+  <view wx:if="{{!createdFamily}}" class="create-form">
+    <view class="form-intro">
+      <van-icon name="home-o" size="64rpx" class="intro-icon" color="#FF9500" />
+      <text class="intro-title">创建你的家庭组</text>
+      <text class="intro-desc">创建一个家庭组，邀请家人加入，共同关注彼此的用药情况</text>
+    </view>
+
+    <view class="form-group">
+      <text class="form-label">家庭组名称</text>
+      <input
+        class="form-input"
+        placeholder="例如：张秀兰的家庭"
+        value="{{familyName}}"
+        bindinput="handleNameInput"
+        maxlength="20"
+        focus
+      />
+      <view wx:if="{{errorMsg}}" class="form-error">{{errorMsg}}</view>
+    </view>
+
+    <button
+      class="btn btn-primary btn-lg"
+      bindtap="handleSubmit"
+      loading="{{isSubmitting}}"
+      disabled="{{isSubmitting}}"
+    >
+      {{isSubmitting ? '创建中...' : '创建家庭组'}}
+    </button>
+  </view>
+
+  <!-- 创建成功 -->
+  <view wx:else class="create-success">
+    <van-icon name="passed" size="80rpx" class="success-icon" color="#0079FF" />
+    <text class="success-title">家庭组创建成功！</text>
+    <text class="success-family-name">「{{createdFamily.name}}」</text>
+
+    <view class="invite-section">
+      <text class="invite-label">邀请码</text>
+      <view class="invite-code-box">
+        <text class="invite-code">{{createdFamily.invite_code}}</text>
+        <button class="copy-btn" bindtap="handleCopyInviteCode">复制</button>
+      </view>
+      <text class="invite-hint">将此邀请码分享给家人，他们输入邀请码即可加入</text>
+    </view>
+
+    <button class="btn btn-primary btn-lg" bindtap="handleGoHome">
+      进入首页
+    </button>
+  </view>
+
+</view>

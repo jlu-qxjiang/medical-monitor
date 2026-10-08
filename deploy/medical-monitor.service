@@ -1,0 +1,21 @@
+[Unit]
+Description=Medical Monitor Backend (按时吃药)
+After=network.target mysql.service mariadb.service
+Wants=mysql.service
+
+[Service]
+Type=simple
+User=medical
+Group=medical
+WorkingDirectory=/opt/medical-monitor
+ExecStart=/opt/medical-monitor/medical-monitor
+EnvironmentFile=/opt/medical-monitor/.env.production
+Restart=always
+RestartSec=5
+LimitNOFILE=65536
+
+StandardOutput=append:/opt/medical-monitor/logs/stdout.log
+StandardError=append:/opt/medical-monitor/logs/stderr.log
+
+[Install]
+WantedBy=multi-user.target

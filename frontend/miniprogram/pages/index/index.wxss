@@ -1,0 +1,255 @@
+/* ===== 未登录角色选择 ===== */
+.welcome-page {
+  min-height: 100vh;
+  background: linear-gradient(160deg, #0079FF 0%, #0060CC 60%, #0050B3 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 40rpx;
+}
+.welcome-card {
+  width: 100%;
+  max-width: 600rpx;
+  text-align: center;
+}
+.welcome-title { font-size: 52rpx; font-weight: 700; color: #fff; display: block; margin-bottom: 12rpx; }
+.welcome-sub { font-size: 28rpx; color: rgba(255,255,255,0.6); display: block; margin-bottom: 56rpx; }
+.welcome-roles { display: flex; flex-direction: column; gap: 28rpx; }
+.welcome-role {
+  background: rgba(255,255,255,0.97); border-radius: 20rpx; padding: 36rpx 32rpx;
+  display: flex; align-items: center; gap: 24rpx; text-align: left;
+}
+.role-elder { border-left: 10rpx solid #FF9500; }
+.role-child { border-left: 10rpx solid #0079FF; }
+.role-icon-wrap { width: 88rpx; height: 88rpx; border-radius: 50%; background: #F5F7FA; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.role-text { flex: 1; min-width: 0; }
+.role-label { font-size: 36rpx; font-weight: 700; color: #1A1A1A; display: block; }
+.role-desc { font-size: 24rpx; color: #999; display: block; margin-top: 6rpx; }
+.welcome-footer { display: block; margin-top: 60rpx; font-size: 24rpx; color: rgba(255,255,255,0.45); }
+
+/* ==================== 通用 ==================== */
+.page-container { min-height: 100vh; padding-bottom: 100rpx; }
+.error-container { text-align: center; padding: 120rpx 40rpx; color: #999; }
+.empty-hint { text-align: center; padding: 80rpx 40rpx; color: #999; font-size: 28rpx; }
+.empty-title { font-size: 34rpx; font-weight: 700; display: block; margin-bottom: 20rpx; }
+.tag-green { color: #0079FF; font-size: 24rpx; }
+.tag-yellow { color: #FF9500; font-size: 24rpx; }
+
+.join-link { text-align: center; margin-top: 24rpx; color: #0079FF; font-size: 28rpx; display: block; }
+
+/* ===== 老人端 ===== */
+.elder-page { background:#f7f7f7; min-height:100vh; padding-bottom:100rpx; }
+.join-box { text-align: center; padding: 40rpx; }
+.join-hint { font-size: 26rpx; color: #999; display: block; margin: 16rpx 0 24rpx; }
+.join-error { color: #FA5151; font-size: 26rpx; margin-top: 16rpx; display: block; }
+
+/* 自定义双Tab */
+.elder-tabs { display:flex; background:#fff; border-bottom:1rpx solid #eee; }
+.elder-tab { flex:1; text-align:center; padding:24rpx 0; position:relative; }
+.elder-tab text { font-size:30rpx; color:#999; }
+.elder-tab.active text { color:#1A1A1A; font-weight:600; }
+.elder-tab.active::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:48rpx; height:6rpx; background:#FA5151; border-radius:3rpx; }
+
+.elder-tab-body { padding:20rpx 24rpx; }
+.elder-empty { text-align:center; padding:80rpx 40rpx; color:#999; font-size:28rpx; }
+
+/* ===== 服药卡片 ===== */
+.med-card { background:#fff; border-radius:16rpx; padding:0; margin-bottom:16rpx; box-shadow:0 2rpx 8rpx rgba(0,0,0,0.04); }
+.med-card.card-done { opacity:0.65; }
+
+/* 卡片头部 */
+.mc-head { display:flex; align-items:center; justify-content:space-between; padding:24rpx 24rpx 0; }
+.mc-time { display:flex; align-items:center; gap:12rpx; font-size:32rpx; font-weight:700; color:#1A1A1A; }
+.mc-clock { width:36rpx; height:36rpx; border:3rpx solid #0079FF; border-radius:50%; position:relative; }
+.mc-clock::after { content:''; position:absolute; top:50%; left:50%; width:3rpx; height:40%; background:#0079FF; transform:translate(-50%,-50%); }
+.mc-clock::before { content:''; position:absolute; top:30%; left:50%; width:30%; height:3rpx; background:#0079FF; transform:translateX(-50%); transform-origin:left center; }
+
+/* 状态标签 */
+.mc-tag { padding:6rpx 20rpx; border-radius:20rpx; font-size:22rpx; font-weight:600; }
+.tag-green-bg { background:#0079FF; color:#fff; }
+.tag-red-bg { background:#FA5151; color:#fff; }
+.tag-orange-bg { background:#FF9500; color:#fff; }
+.tag-gray-bg { background:#ccc; color:#fff; }
+
+/* 药品行 */
+.mc-med-row { display:flex; align-items:center; justify-content:space-between; padding:20rpx 24rpx; border-top:1rpx solid #f5f5f5; }
+.mc-med-info { flex:1; min-width:0; }
+.mc-med-name { display:block; font-size:34rpx; font-weight:700; color:#1A1A1A; }
+.mc-med-dose { display:block; font-size:26rpx; color:#999; margin-top:6rpx; }
+
+/* 状态图标 */
+.mc-med-status { flex-shrink:0; margin-left:16rpx; }
+.status-check { font-size:36rpx; color:#0079FF; font-weight:700; }
+.status-cross { font-size:36rpx; color:#FA5151; font-weight:700; }
+
+/* 底部操作按钮 */
+.mc-actions { display:flex; gap:16rpx; padding:0 24rpx 24rpx; }
+.mc-btn-ok {
+  flex:1; height:80rpx; border-radius:12rpx; font-size:30rpx; font-weight:700;
+  background:#0079FF; color:#fff; border:none; display:flex; align-items:center; justify-content:center;
+}
+.mc-btn-ok::after { border:none; }
+.mc-btn-ok:active { background:#0060CC; }
+.mc-btn-no {
+  flex:1; height:80rpx; border-radius:12rpx; font-size:30rpx; font-weight:700;
+  background:#FA5151; color:#fff; border:none; display:flex; align-items:center; justify-content:center;
+}
+.mc-btn-no::after { border:none; }
+.mc-btn-no:active { background:#E04848; }
+
+/* ===== 用药计划卡片 ===== */
+.plan-card { background:#fff; border-radius:16rpx; padding:24rpx; margin-bottom:12rpx; }
+.plan-card.plan-ended { opacity:0.5; }
+.plan-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10rpx; }
+.plan-name { font-size:30rpx; font-weight:700; color:#1A1A1A; }
+.plan-end-tag { padding:4rpx 16rpx; border-radius:10rpx; font-size:22rpx; background:#f0f0f0; color:#999; }
+.plan-time { font-size:26rpx; color:#666; display:block; margin-top:4rpx; }
+.plan-date { font-size:24rpx; color:#999; display:block; margin-top:4rpx; }
+
+/* ===== 子女端 ===== */
+.family-header-bar { background: #fff; padding: 20rpx 24rpx; margin-bottom: 12rpx; }
+.f-title { font-size: 34rpx; font-weight: 700; display: block; }
+.invite-row-sm { display: flex; align-items: center; gap: 12rpx; margin-top: 8rpx; }
+.invite-code-sm { font-size: 32rpx; font-weight: 700; color: #0079FF; letter-spacing: 4rpx; font-family: monospace; }
+.invite-expire { font-size: 22rpx; color: #FF9500; }
+.refresh-btn-sm { font-size: 22rpx; padding: 4rpx 16rpx; background: #0079FF; color: #fff; border-radius: 6rpx; }
+
+.section-label { font-size: 26rpx; color: #999; padding: 0 24rpx; margin-bottom: 8rpx; display: block; }
+
+
+.sch-card { background: #fff; border-radius: 14rpx; padding: 18rpx 22rpx; margin: 8rpx 24rpx; border-left: 6rpx solid #0079FF; }
+.sch-med { font-size: 29rpx; font-weight: 700; display: block; }
+.sch-times { font-size: 24rpx; color: #0079FF; margin-top: 6rpx; display: block; font-weight:500; }
+.sch-who { font-size: 22rpx; color: #999; margin-top: 4rpx; display: block; }
+.sch-card:active { transform: scale(0.98); background: #FAFFFA; }
+
+/* 我的用药 */
+.my-med-section { margin: 16rpx 0; }
+.my-med-card { background:#fff; border-radius:12rpx; padding:16rpx 20rpx; margin:8rpx 24rpx; border-left:6rpx solid #0079FF; }
+.my-med-info { display:flex; align-items:center; gap:12rpx; margin-bottom:6rpx; }
+.my-med-time { font-size:28rpx; font-weight:600; }
+.my-med-row { display:flex; align-items:center; justify-content:space-between; padding:6rpx 0; border-bottom:1rpx solid #f5f5f5; }
+.my-med-name { font-size:26rpx; }
+.my-med-btns { display:flex; gap:8rpx; }
+.my-med-btns .act-ok { padding:6rpx 16rpx; font-size:22rpx; background:#0079FF; color:#fff; border-radius:6rpx; }
+.my-med-btns .act-skip { padding:6rpx 16rpx; font-size:22rpx; background:#f0f0f0; color:#999; border-radius:6rpx; }
+
+/* 计划详情弹窗头部 */
+.md-header { display:flex; align-items:center; gap:12rpx; margin-bottom:16rpx; }
+.md-icon { font-size:48rpx; }
+.md-title { font-size:34rpx; font-weight:700; }
+
+.no-family-page { text-align: center; padding: 80rpx 40rpx; }
+.no-family-actions { padding: 24rpx 40rpx; }
+
+/* ==================== 子女端 ==================== */
+.child-page { background:#F5F7FA; min-height:100vh; padding:0 24rpx 100rpx; }
+
+/* 告警聚合 */
+.alert-group { margin:16rpx 0; background:#fff; border-radius:20rpx; padding:24rpx 28rpx; box-shadow:0 2rpx 8rpx rgba(0,0,0,0.04); }
+.alert-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:16rpx; }
+.alert-head-title { font-size:30rpx; font-weight:700; color:#1A1A1A; }
+.alert-head-all { font-size:26rpx; color:#0079FF; }
+.alert-card { display:flex; align-items:flex-start; gap:14rpx; padding:20rpx 22rpx; border-radius:14rpx; margin-bottom:10rpx; }
+.alert-card:last-child { margin-bottom:0; }
+.alert-danger { background:#FFF3E0; }
+.alert-warn { background:#FFFDF5; }
+.alert-icon { width:44rpx; height:44rpx; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24rpx; font-weight:700; flex-shrink:0; }
+.alert-danger .alert-icon { background:#FF8C00; color:#fff; }
+.alert-warn .alert-icon { background:#0079FF; color:#fff; }
+.alert-text { font-size:28rpx; color:#333; line-height:1.7; flex:1; }
+
+/* 家人状态卡片 */
+.status-card {
+  display:flex; background:#fff; border-radius:16rpx; margin-bottom:16rpx;
+  overflow:hidden; box-shadow:0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+.sc-bar { width:8rpx; flex-shrink:0; background:#ccc; }
+.sc-bar.normal { background:#52C999; }
+.sc-bar.warning { background:#FF9500; }
+.sc-bar.danger { background:#FA5151; }
+.sc-body { flex:1; padding:28rpx 24rpx; min-width:0; }
+.sc-head { display:flex; align-items:baseline; margin-bottom:8rpx; }
+.sc-name { font-size:34rpx; font-weight:700; color:#1A1A1A; }
+.sc-label { font-size:26rpx; color:#999; }
+.sc-desc { font-size:26rpx; color:#666; display:block; margin-bottom:18rpx; line-height:1.6; }
+
+/* 进度条 */
+.sc-progress-wrap { display:flex; align-items:center; gap:12rpx; }
+.sc-progress { flex:1; height:10rpx; background:#f0f0f0; border-radius:5rpx; overflow:hidden; }
+.sc-fill { height:100%; background:#0079FF; border-radius:5rpx; transition:width 0.3s; }
+.sc-pct { font-size:26rpx; font-weight:700; color:#0079FF; min-width:60rpx; }
+
+/* 我的用药 */
+.my-med-section { margin:16rpx 0; }
+.section-label { display:block; font-size:26rpx; color:#999; margin-bottom:10rpx; }
+.my-med-card { background:#fff; border-radius:14rpx; padding:16rpx 20rpx; margin-bottom:10rpx; border-left:6rpx solid #0079FF; }
+.my-med-info { display:flex; align-items:center; gap:12rpx; margin-bottom:8rpx; }
+.my-med-time { font-size:28rpx; font-weight:600; }
+.my-med-row { display:flex; align-items:center; justify-content:space-between; padding:8rpx 0; border-bottom:1rpx solid #f5f5f5; }
+.my-med-name { font-size:26rpx; }
+.my-med-btns { display:flex; gap:8rpx; }
+.done-mark { font-size:32rpx; color:#0079FF; }
+
+/* 计划 Tab */
+.child-sch-tabs { display:flex; align-items:center; justify-content:space-between; margin-top:24rpx; }
+.cst-tabs { display:flex; gap:32rpx; }
+.cst-tab { padding:16rpx 0; position:relative; }
+.cst-tab text { font-size:30rpx; color:#999; }
+.cst-tab.active text { color:#1A1A1A; font-weight:600; }
+.cst-tab.active::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:40rpx; height:6rpx; background:#FA5151; border-radius:3rpx; }
+.cst-add-btn {
+  padding:10rpx 24rpx; font-size:26rpx; font-weight:600; border-radius:24rpx;
+  background:#0079FF; color:#fff; border:none; line-height:1.5;
+}
+.cst-add-btn::after { border:none; }
+
+/* 计划列表 */
+.sch-list { margin-top:16rpx; }
+.sch-card { background:#fff; border-radius:14rpx; padding:0; margin-bottom:10rpx; border-left:6rpx solid #0079FF; overflow:hidden; }
+.sch-card-top { display:flex; align-items:flex-start; padding:20rpx 20rpx 20rpx 18rpx; }
+.sch-card-info { flex:1; min-width:0; }
+.sch-name { display:block; font-size:30rpx; font-weight:700; color:#1A1A1A; }
+.sch-time { display:block; font-size:24rpx; color:#0079FF; margin-top:6rpx; font-weight:500; }
+.sch-info { display:block; font-size:22rpx; color:#999; margin-top:4rpx; }
+
+/* 编辑/删除按钮 */
+.sch-card-actions { display:flex; flex-direction:column; gap:8rpx; flex-shrink:0; margin-left:12rpx; }
+.sch-edit-btn { padding:8rpx 16rpx; font-size:22rpx; border-radius:6rpx; background:#E8F3FF; color:#0079FF; border:none; }
+.sch-edit-btn::after { border:none; }
+.sch-del-btn { padding:8rpx 16rpx; font-size:22rpx; border-radius:6rpx; background:#FFF0F0; color:#FA5151; border:none; }
+.sch-del-btn::after { border:none; }
+
+/* 编辑弹窗 */
+.edit-sch-title { font-size:34rpx; font-weight:700; text-align:center; margin-bottom:20rpx; }
+.edit-sch-form { padding:0; }
+.edit-time-row { display:flex; align-items:center; gap:8rpx; padding:4rpx 16rpx; }
+.edit-time-row van-field { flex:1; }
+
+/* 计划详情弹窗 */
+.md-header { display:flex; align-items:center; gap:12rpx; margin-bottom:16rpx; }
+.md-icon { font-size:48rpx; }
+.md-title { font-size:34rpx; font-weight:700; }
+
+/* 无家庭组 */
+.no-family-page { padding:120rpx 40rpx; }
+.no-family-actions { padding:24rpx 40rpx; }
+.join-link { text-align:center; margin-top:24rpx; color:#0079FF; font-size:28rpx; display:block; }
+
+/* ===== 日历 ===== */
+.cal-wrap { margin:16rpx 24rpx; background:#fff; border-radius:16rpx; padding:20rpx 16rpx 16rpx; box-shadow:0 2rpx 8rpx rgba(0,0,0,0.04); }
+.cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16rpx; }
+.cal-arrow { font-size:40rpx; color:#0079FF; padding:0 16rpx; font-weight:300; }
+.cal-month { font-size:32rpx; font-weight:700; color:#1A1A1A; }
+.cal-weekdays { display:flex; margin-bottom:8rpx; }
+.cal-wd { flex:1; text-align:center; font-size:24rpx; color:#999; padding:8rpx 0; }
+.cal-grid { display:flex; flex-wrap:wrap; }
+.cal-day { width:calc(100% / 7); aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; border-radius:8rpx; }
+.cal-day.today { border:3rpx solid #FA5151; border-radius:12rpx; }
+.cal-day-num { font-size:28rpx; color:#1A1A1A; }
+.cal-day-dot { width:8rpx; height:8rpx; border-radius:50%; background:#0079FF; margin-top:2rpx; }
+
+/* 日历状态底色 */
+.cal-day.completed { background:#E8F3FF; }
+.cal-day.partial { background:#FFF8E1; }
+.cal-day.pending { background:#FFEBEE; }

@@ -1,0 +1,65 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/reminder/today/today",
+    "pages/reminder/history/history",
+    "pages/reminder/calendar/calendar",
+    "pages/dashboard/overview/overview",
+    "pages/family/list/list",
+    "pages/family/create/create",
+    "pages/family/join/join",
+    "pages/medicine/list/list",
+    "pages/medicine/add/add",
+    "pages/medicine/detail/detail",
+    "pages/medicine/schedule/schedule",
+    "pages/settings/profile/profile",
+    "pages/settings/notification/notification"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#0079FF",
+    "navigationBarTitleText": "朝夕小叮",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F5F7FA"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#0079FF",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/medicine/list/list",
+        "text": "药品"
+      },
+      {
+        "pagePath": "pages/reminder/calendar/calendar",
+        "text": "记录"
+      },
+      {
+        "pagePath": "pages/settings/profile/profile",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {
+    "medicine-card": "/components/medicine-card/medicine-card",
+    "confirm-dialog": "/components/confirm-dialog/confirm-dialog",
+    "loading-box": "/components/loading/loading",
+    "empty-state": "/components/empty-state/empty-state",
+    "icon": "/components/icon/icon",
+    "illustration": "/components/illustration/illustration"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于用药提醒定位"
+    }
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

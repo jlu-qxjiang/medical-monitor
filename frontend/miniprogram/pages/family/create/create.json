@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "创建家庭组",
+  "usingComponents": {
+    "van-icon": "@vant/weapp/icon/index"
+  }
+}

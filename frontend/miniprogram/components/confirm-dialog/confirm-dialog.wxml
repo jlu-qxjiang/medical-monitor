@@ -1,0 +1,38 @@
+<!-- 确认吃药弹窗 -->
+<view wx:if="{{visible}}" class="dialog-overlay" bindtap="onOverlayTap">
+  <view class="dialog-container" catchtap="">
+    <!-- 标题 -->
+    <view class="dialog-title">{{title}}</view>
+
+    <!-- 药品列表 -->
+    <view wx:if="{{medicineList.length > 0}}" class="dialog-medicine-list">
+      <view wx:for="{{medicineList}}" wx:key="index" class="dialog-medicine-item">
+        <icon name="pill" size="36rpx" />
+        <text class="medicine-text">{{item.name}} {{item.dosage}}{{item.unit}}</text>
+      </view>
+    </view>
+
+    <!-- 按钮区 -->
+    <view class="dialog-actions">
+      <!-- 确认按钮 -->
+      <button
+        class="dialog-btn confirm-btn {{loading ? 'btn-loading' : ''}}"
+        bindtap="onConfirm"
+        disabled="{{loading}}"
+        loading="{{loading}}"
+      >
+        {{loading ? '提交中...' : confirmText}}
+      </button>
+
+      <!-- 跳过按钮 -->
+      <button
+        wx:if="{{showCancel}}"
+        class="dialog-btn cancel-btn"
+        bindtap="onCancel"
+        disabled="{{loading}}"
+      >
+        {{cancelText}}
+      </button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,38 @@
+<!-- 提醒设置页 -->
+<view class="pg">
+
+  <!-- 提醒设置卡片 -->
+  <view class="nf-card">
+    <!-- 总开关 -->
+    <view class="nf-master">
+      <view class="nf-master-left">
+        <text class="nf-title">提醒总开关</text>
+        <text class="nf-desc">开启后将为您提供各类提醒服务</text>
+      </view>
+      <switch checked="{{masterOn}}" bindchange="onMasterSwitch" color="#0079FF" />
+    </view>
+
+    <!-- 分割线 -->
+    <view class="nf-divider"></view>
+
+    <!-- 子开关 -->
+    <view class="nf-subs">
+      <!-- 用药提醒 -->
+      <view class="nf-sub {{masterOn ? '' : 'disabled'}}">
+        <view class="nf-sub-icon">💊</view>
+        <text class="nf-sub-title">用药提醒</text>
+        <text class="nf-sub-desc">服药任务提醒</text>
+        <switch checked="{{masterOn && reminderOn}}" disabled="{{!masterOn}}" bindchange="onReminderSwitch" color="#0079FF" />
+      </view>
+
+      <!-- 药品数量提醒 -->
+      <view class="nf-sub {{masterOn ? '' : 'disabled'}}">
+        <view class="nf-sub-icon">📦</view>
+        <text class="nf-sub-title">药品数量提醒</text>
+        <text class="nf-sub-desc">库存不足、即将用完</text>
+        <switch checked="{{masterOn && stockOn}}" disabled="{{!masterOn}}" bindchange="onStockSwitch" color="#0079FF" />
+      </view>
+    </view>
+  </view>
+
+</view>

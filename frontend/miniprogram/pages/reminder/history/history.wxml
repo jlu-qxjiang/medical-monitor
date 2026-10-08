@@ -1,0 +1,79 @@
+<!-- 用药历史页 -->
+<view class="page-container">
+
+  <!-- 日期选择器 -->
+  <view class="date-nav">
+    <view class="date-arrow" bindtap="handlePrevDay">&#x2039;</view>
+    <picker mode="date" value="{{selectedDate}}" bindchange="handleDateChange">
+      <view class="date-picker">
+        <text class="date-text">{{selectedDateStr}}</text>
+        <van-icon name="calendar-o" size="32rpx" class="date-icon" />
+      </view>
+    </picker>
+    <view class="date-arrow" bindtap="handleNextDay">&#x203A;</view>
+  </view>
+
+  <!-- 摘要 -->
+  <view wx:if="{{!isLoading && records.length > 0}}" class="day-summary">
+    <text>{{summary.total}} 次用药计划，{{summary.confirmed}} 次已完成</text>
+  </view>
+
+  <!-- 加载态 -->
+  <loading-box visible="{{isLoading}}" mode="skeleton" skeletonRows="{{3}}" />
+
+  <!-- 错误态 -->
+  <view wx:if="{{loadError}}">
+    <van-empty image="error" description="加载失败">
+      <van-button type="primary" size="small" bind:click="handleRetry">重新加载</van-button>
+    </van-empty>
+  </view>
+
+  <!-- 历史记录 -->
+  <view wx:else>
+    <view wx:if="{{records.length > 0}}" class="history-list">
+      <view
+        wx:for="{{records}}"
+        wx:key="id"
+        class="history-item card {{item._allTaken ? 'completed' : 'missed'}}"
+      >
+        <view class="history-header">
+          <view class="history-time">
+            <view class="time-circle {{item._allTaken ? 'green' : 'red'}}">
+              <text wx:if="{{item._allTaken}}">✓</text>
+              <text wx:else>✗</text>
+            </view>
+            <view class="history-time-info">
+              <text class="history-time-label">{{item.time_label}}</text>
+              <text class="history-time-of-day">{{item._timeLabel}}</text>
+            </view>
+          </view>
+          <view class="history-status">
+            <text wx:if="{{item._allTaken}}" class="tag tag-green">已服用</text>
+            <text wx:else class="tag tag-red">未服用</text>
+          </view>
+        </view>
+
+        <view class="history-medicines">
+          <view
+            wx:for="{{item.items}}"
+            wx:key="id"
+            class="history-medicine-row"
+          >
+            <text class="medicine-name">{{item.medicine_name}}</text>
+            <text class="medicine-dose">{{item.dosage}}{{item.unit}}</text>
+            <text wx:if="{{item.taken}}" class="tag tag-green">✓</text>
+            <text wx:else class="tag tag-red">✗</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <empty-state
+      wx:else
+      icon="📋"
+      title="当天无用药记录"
+      description="{{dateUtil.isToday(selectedDate) ? '今天还没有用药提醒' : '该日期没有用药记录'}}"
+    />
+  </view>
+
+</view>

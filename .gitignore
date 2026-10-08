@@ -1,0 +1,27 @@
+# ===== 敏感信息（绝对不能上传，含密码/密钥）=====
+config.yaml
+.env
+.env.production
+*.env
+
+# ===== Go 编译产物 =====
+server-linux
+server.exe
+*.exe
+*.test
+*.out
+
+# ===== 日志文件 =====
+logs/
+*.log
+
+# ===== 前端依赖（node_modules 和构建产物）=====
+node_modules/
+miniprogram_npm/
+
+# ===== 微信开发者工具私有配置 =====
+project.private.config.json
+
+# ===== 系统文件 =====
+.DS_Store
+Thumbs.db

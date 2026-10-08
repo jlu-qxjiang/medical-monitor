@@ -1,0 +1,48 @@
+<!-- 家人用药详情页 -->
+<view class="pg">
+  <view wx:if="{{isLoading}}" class="hint">加载中...</view>
+
+  <view wx:else>
+    <!-- 信息卡片 -->
+    <view class="ov-card">
+      <text class="ov-name">{{elderName}}</text>
+      <text class="ov-date">{{date}}</text>
+
+      <!-- 统计栏 -->
+      <view class="ov-stats">
+        <view class="ov-stat"><text class="ovs-num">{{summary.total || 0}}</text><text class="ovs-label">总计</text></view>
+        <view class="ov-stat"><text class="ovs-num green">{{summary.confirmed || 0}}</text><text class="ovs-label">已确认</text></view>
+        <view class="ov-stat"><text class="ovs-num orange">{{summary.missed || 0}}</text><text class="ovs-label">待服药</text></view>
+        <view class="ov-stat"><text class="ovs-num blue">{{summary.completion_rate ? Math.round(summary.completion_rate * 100) : 0}}%</text><text class="ovs-label">完成率</text></view>
+      </view>
+    </view>
+
+    <!-- 时间段分组 -->
+    <view wx:for="{{slots}}" wx:key="reminder_id" class="ov-group">
+      <text class="ov-group-title">{{item._timeLabel || item.time_label}}</text>
+      <view class="ov-task">
+        <!-- 状态标签 -->
+        <view class="ov-task-head">
+          <text wx:if="{{item.status === 'confirmed'}}" class="ot-tag tag-done">{{item._statusLabel || '已服用'}}</text>
+          <text wx:elif="{{item.status === 'missed'}}" class="ot-tag tag-overdue">超时未确认</text>
+          <text wx:elif="{{item.status === 'skipped'}}" class="ot-tag tag-skip">已跳过</text>
+          <text wx:else class="ot-tag tag-wait">待服药</text>
+        </view>
+        <!-- 药品清单 -->
+        <view wx:for="{{item.items}}" wx:for-item="med" wx:key="id" class="ot-med">
+          <text class="ot-med-name">{{med.medicine_name}}</text>
+          <text class="ot-med-dose">{{med.dosage}}{{med.unit}}</text>
+        </view>
+        <!-- 代确认按钮 -->
+        <view wx:if="{{item.status !== 'confirmed' && item.status !== 'skipped'}}" class="ot-action">
+          <button class="ot-btn-confirm" data-rid="{{item.reminder_id || item.id}}" bindtap="proxyConfirm">标记已服用</button>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部链接 -->
+    <view class="ov-bottom" bindtap="viewSchedule">
+      <text>查看用药计划详情</text>
+    </view>
+  </view>
+</view>

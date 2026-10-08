@@ -1,0 +1,24 @@
+/* 提醒设置页 */
+.pg { min-height:100vh; background:#F5F7FA; padding:24rpx; }
+
+/* 卡片 */
+.nf-card { background:#fff; border-radius:20rpx; padding:0; box-shadow:0 2rpx 8rpx rgba(0,0,0,0.04); overflow:hidden; }
+
+/* 总开关 */
+.nf-master { display:flex; align-items:center; justify-content:space-between; padding:32rpx 28rpx; }
+.nf-master-left { flex:1; }
+.nf-title { display:block; font-size:34rpx; font-weight:700; color:#1A1A1A; margin-bottom:6rpx; }
+.nf-desc { display:block; font-size:24rpx; color:#999; }
+
+/* 分割线 */
+.nf-divider { height:1rpx; background:#F0F0F0; margin:0 28rpx; }
+
+/* 子开关 */
+.nf-subs { display:flex; }
+.nf-sub { flex:1; display:flex; flex-direction:column; align-items:center; padding:32rpx 16rpx; position:relative; }
+.nf-sub:first-child::after { content:''; position:absolute; right:0; top:20%; height:60%; width:1rpx; background:#F0F0F0; }
+.nf-sub-icon { font-size:48rpx; margin-bottom:12rpx; }
+.nf-sub-title { font-size:28rpx; font-weight:600; color:#1A1A1A; margin-bottom:4rpx; }
+.nf-sub-desc { font-size:22rpx; color:#999; margin-bottom:16rpx; text-align:center; }
+
+.nf-sub.disabled { opacity:0.4; pointer-events:none; }

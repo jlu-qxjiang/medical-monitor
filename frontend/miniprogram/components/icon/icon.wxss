@@ -1,0 +1,92 @@
+.icon-wrap { display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; vertical-align:middle; }
+.icon-inner { width:100%; height:100%; position:relative; }
+
+/* check-circle — ✓ 圆圈 */
+.icon-check-circle {
+  border:3rpx solid currentColor; border-radius:50%; box-sizing:border-box;
+}
+.icon-check-circle::after {
+  content:''; position:absolute; top:30%; left:25%;
+  width:50%; height:30%;
+  border-left:3rpx solid currentColor; border-bottom:3rpx solid currentColor;
+  transform:rotate(-45deg); box-sizing:border-box;
+}
+
+/* close-circle — ✕ 圆圈 */
+.icon-close-circle {
+  border:3rpx solid currentColor; border-radius:50%; box-sizing:border-box;
+}
+.icon-close-circle::after,
+.icon-close-circle::before {
+  content:''; position:absolute; top:20%; left:45%;
+  width:3rpx; height:60%; background:currentColor; border-radius:2rpx;
+}
+.icon-close-circle::after { transform:rotate(45deg); }
+.icon-close-circle::before { transform:rotate(-45deg); }
+
+/* arrow-right — 右箭头 */
+.icon-arrow-right::after {
+  content:''; position:absolute; top:35%; left:40%;
+  width:30%; height:30%;
+  border-top:3rpx solid currentColor; border-right:3rpx solid currentColor;
+  transform:rotate(45deg); box-sizing:border-box;
+}
+
+/* add — 加号 */
+.icon-add::after,
+.icon-add::before {
+  content:''; position:absolute; background:currentColor; border-radius:2rpx;
+}
+.icon-add::after { top:15%; left:45%; width:3rpx; height:70%; }
+.icon-add::before { top:45%; left:15%; width:70%; height:3rpx; }
+
+/* clock — 钟表 */
+.icon-clock {
+  border:3rpx solid currentColor; border-radius:50%; box-sizing:border-box;
+}
+.icon-clock::after,
+.icon-clock::before {
+  content:''; position:absolute; left:45%; background:currentColor; border-radius:2rpx;
+  transform-origin:bottom center;
+}
+.icon-clock::after { top:20%; width:3rpx; height:30%; }
+.icon-clock::before { top:28%; width:2rpx; height:22%; transform:rotate(30deg); }
+
+/* skip — 跳过箭头 */
+.icon-skip::after {
+  content:''; position:absolute; top:35%; left:25%;
+  width:40%; height:30%;
+  border-top:3rpx solid currentColor; border-right:3rpx solid currentColor;
+  transform:rotate(45deg); box-sizing:border-box;
+}
+
+/* edit — 铅笔 */
+.icon-edit::after {
+  content:''; position:absolute; top:15%; left:40%; width:3rpx; height:50%;
+  background:currentColor; border-radius:2rpx; transform:rotate(-30deg);
+}
+
+/* delete — 垃圾桶 */
+.icon-delete { border:2rpx solid currentColor; border-radius:4rpx; box-sizing:border-box; border-top:none; }
+.icon-delete::after { content:''; position:absolute; top:8%; left:20%; width:60%; height:2rpx; background:currentColor; }
+
+/* alert — 三角形感叹号 */
+.icon-alert::after {
+  content:''; position:absolute; top:25%; left:35%;
+  width:3rpx; height:35%; background:#fff; border-radius:2rpx;
+}
+.icon-alert {
+  width:0; height:0; border-left:50% solid transparent; border-right:50% solid transparent;
+}
+
+/* 默认回退：CSS 画不了的复杂图标用文字符号 */
+.icon-home::after   { content:'⌂'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:inherit; }
+.icon-pill::after   { content:'💊'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:inherit; }
+.icon-pill-bottle::after { content:'🧴'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:inherit; }
+.icon-family::after { content:'👨‍👩‍👧'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:inherit; }
+.icon-elder::after  { content:'👴'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:inherit; }
+.icon-child::after  { content:'🧑'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:inherit; }
+.icon-medicine-box::after { content:'📦'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:inherit; }
+.icon-user::after   { content:'👤'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:inherit; }
+.icon-stock-low::after { content:'📉'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:inherit; }
+.icon-calendar::after { content:'📅'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:inherit; }

@@ -1,0 +1,20 @@
+{
+  "navigationBarTitleText": "朝夕小叮",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "loading-box": "/components/loading/loading",
+    "empty-state": "/components/empty-state/empty-state",
+    "van-button": "@vant/weapp/button/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-progress": "@vant/weapp/progress/index",
+    "van-notice-bar": "@vant/weapp/notice-bar/index",
+    "van-icon": "@vant/weapp/icon/index"
+  }
+}

@@ -1,0 +1,62 @@
+<!-- 药品详情页 -->
+<view class="page-container">
+
+  <loading-box visible="{{isLoading}}" mode="skeleton" skeletonRows="{{5}}" />
+
+  <view wx:if="{{!isLoading && medicine}}" class="detail-card">
+    <!-- 药品名称 -->
+    <view class="medicine-header">
+      <text class="medicine-name">{{medicine.name}}</text>
+      <text wx:if="{{medicine.specification}}" class="medicine-spec">{{medicine.specification}}</text>
+    </view>
+
+    <!-- 信息列表 -->
+    <view class="info-list">
+      <view wx:if="{{medicine.manufacturer}}" class="info-row">
+        <text class="info-label">生产厂家</text>
+        <text class="info-value">{{medicine.manufacturer}}</text>
+      </view>
+
+      <view wx:if="{{medicine.notes}}" class="info-row">
+        <text class="info-label">备注</text>
+        <text class="info-value">{{medicine.notes}}</text>
+      </view>
+
+      <view wx:if="{{medicine.stock}}" class="info-row">
+        <text class="info-label">库存</text>
+        <view class="info-value">
+          <text>总量 {{medicine.stock.total_count}} / 剩余 {{medicine.stock.remaining_count}}</text>
+          <text wx:if="{{medicine.stock.alert_threshold > 0}}" class="stock-alert">
+            （低于 {{medicine.stock.alert_threshold}} 预警）
+          </text>
+        </view>
+      </view>
+
+      <view class="info-row">
+        <text class="info-label">创建时间</text>
+        <text class="info-value">{{medicine.created_at || '--'}}</text>
+      </view>
+    </view>
+
+    <!-- 药品照片 -->
+    <view wx:if="{{medicine.image_url}}" class="medicine-photo">
+      <image class="photo-image" src="{{medicine.image_url}}" mode="aspectFit" />
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button class="btn btn-primary" bindtap="handleEdit">
+        编辑药品
+      </button>
+      <button
+        class="btn btn-danger"
+        bindtap="handleDelete"
+        loading="{{isDeleting}}"
+        disabled="{{isDeleting}}"
+      >
+        {{isDeleting ? '删除中...' : '删除药品'}}
+      </button>
+    </view>
+  </view>
+
+</view>

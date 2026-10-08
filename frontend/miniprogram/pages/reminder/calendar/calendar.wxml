@@ -1,0 +1,52 @@
+<!-- 药品记录页 — 日历 + 用药计划 -->
+<view class="pg">
+
+  <!-- 双Tab -->
+  <view class="rc-tabs">
+    <view class="rc-tab {{calTab==='family'?'active':''}}" bindtap="switchCalTab" data-tab="family"><text>家庭用药记录</text></view>
+    <view class="rc-tab {{calTab==='personal'?'active':''}}" bindtap="switchCalTab" data-tab="personal"><text>个人用药记录</text></view>
+  </view>
+
+  <!-- 日历 -->
+  <view class="cal-wrap">
+    <view class="cal-header">
+      <text class="cal-arrow" bindtap="prevMonth">‹</text>
+      <text class="cal-month">{{calYear}}年{{calMonth}}月</text>
+      <text class="cal-arrow" bindtap="nextMonth">›</text>
+    </view>
+    <view class="cal-weekdays">
+      <text wx:for="{{calWeekDays}}" wx:key="*this" class="cal-wd">{{item}}</text>
+    </view>
+    <view class="cal-grid">
+      <view wx:for="{{calDays}}" wx:key="index" class="cal-day {{item.isToday ? 'today' : ''}} {{item.hasPlan ? 'has-plan' : ''}} {{item.status}}" bindtap="onCalDayTap" data-date="{{item.date}}">
+        <text class="cal-day-num">{{item.day}}</text>
+        <view wx:if="{{item.hasPlan}}" class="cal-day-dot"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 图例 -->
+  <view class="cal-legend">
+    <view class="cl-item"><view class="cl-dot-bg completed"></view><text>全部完成</text></view>
+    <view class="cl-item"><view class="cl-dot-bg partial"></view><text>部分完成</text></view>
+    <view class="cl-item"><view class="cl-dot-bg pending"></view><text>未完成</text></view>
+    <view class="cl-item"><view class="cl-dot-blue"></view><text>有计划</text></view>
+  </view>
+
+  <!-- 用药计划弹窗 -->
+  <van-popup wx:if="{{selDate}}" show="{{true}}" round position="bottom" bind:close="onClosePopup" custom-style="max-height:60vh;overflow-y:auto;">
+    <view style="padding:32rpx;">
+      <view class="pp-title">{{selDate}} 用药记录</view>
+      <view wx:if="{{isLoading}}" class="rc-loading">加载中...</view>
+      <view wx:elif="{{schList.length > 0}}">
+        <view wx:for="{{schList}}" wx:key="id" class="rc-card">
+          <text class="rc-card-name">{{item.medicine_name}} {{item.dosage}}{{item.unit}}</text>
+          <text class="rc-card-time">{{item.times}}</text>
+          <text class="rc-card-info">{{calTab==='personal' ? '我自己' : (item.elder_nickname || '家人')}} · {{item.start_date}} ~ {{item.end_date}}</text>
+        </view>
+      </view>
+      <view wx:else class="rc-empty">该日期暂无用药计划</view>
+    </view>
+  </van-popup>
+
+</view>

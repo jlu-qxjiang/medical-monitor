@@ -1,0 +1,84 @@
+/* 药品管理页 — 蓝色主题 */
+.pg { min-height:100vh; background:#F5F7FA; padding-bottom:100rpx; }
+.elder-hint { text-align:center; padding:120rpx 40rpx; }
+
+/* Tab */
+.med-tabs { display:flex; background:#fff; border-bottom:1rpx solid #eee; }
+.med-tab { flex:1; text-align:center; padding:24rpx 0; position:relative; }
+.med-tab text { font-size:30rpx; color:#999; }
+.med-tab.active text { color:#1A1A1A; font-weight:600; }
+.med-tab.active::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:48rpx; height:6rpx; background:#FA5151; border-radius:3rpx; }
+.med-tab-hint { display:block; text-align:center; font-size:24rpx; color:#999; padding:12rpx 0 4rpx; background:#fff; }
+
+/* 折叠表单 */
+.med-form { margin:16rpx 24rpx; background:#fff; border-radius:16rpx; overflow:hidden; box-shadow:0 2rpx 8rpx rgba(0,0,0,0.04); }
+.med-form-head { display:flex; align-items:center; justify-content:space-between; padding:22rpx 24rpx; }
+.mfh-title { font-size:30rpx; font-weight:700; color:#1A1A1A; }
+.mfh-arrow { font-size:26rpx; color:#999; }
+.med-form-body { padding:0 24rpx 24rpx; }
+.mf-field { margin-bottom:20rpx; }
+.mf-label { display:block; font-size:28rpx; color:#333; margin-bottom:8rpx; }
+.mf-required { color:#FA5151; margin-right:2rpx; }
+.mf-input { width:100%; height:84rpx; background:#F5F7FA; border-radius:12rpx; padding:0 20rpx; font-size:28rpx; color:#1A1A1A; box-sizing:border-box; }
+.mf-picker { display:flex; align-items:center; color:#999; }
+.med-err { display:block; font-size:24rpx; color:#FA5151; padding:0 0 12rpx; }
+.med-add-btn { width:100%; height:92rpx; border-radius:16rpx; font-size:32rpx; font-weight:700; background:#0079FF; color:#fff; border:none; box-shadow:0 4rpx 12rpx rgba(0,121,255,0.3); }
+.med-add-btn::after { border:none; }
+.med-add-btn:active { background:#0060CC; }
+
+/* 搜索 */
+.med-search-bar { display:flex; align-items:center; gap:16rpx; padding:20rpx 24rpx; }
+.med-search-input-wrap { flex:1; position:relative; }
+.med-search-input { width:100%; height:72rpx; background:#fff; border-radius:36rpx; padding:0 60rpx 0 28rpx; font-size:28rpx; color:#1A1A1A; box-sizing:border-box; }
+.med-search-icon { position:absolute; right:20rpx; top:50%; transform:translateY(-50%); font-size:28rpx; }
+.med-search-count { font-size:24rpx; color:#999; flex-shrink:0; }
+
+.med-loading { text-align:center; padding:80rpx; color:#999; font-size:28rpx; }
+
+/* 药品列表 */
+.med-list { padding:0 24rpx; }
+.med-item { display:flex; align-items:center; background:#fff; border-radius:14rpx; padding:24rpx; margin-bottom:10rpx; border-left:6rpx solid #0079FF; }
+.med-item-body { flex:1; min-width:0; }
+.med-item-top { display:flex; align-items:center; gap:12rpx; margin-bottom:8rpx; }
+.med-item-name { font-size:32rpx; font-weight:700; color:#1A1A1A; }
+.med-tag { padding:4rpx 14rpx; border-radius:10rpx; font-size:22rpx; font-weight:600; }
+.tag-low { background:#FFF3E0; color:#E65100; }
+.tag-expired { background:#FFEBEE; color:#C62828; }
+.med-item-meta { display:block; font-size:24rpx; color:#999; margin-bottom:8rpx; }
+.med-item-stock { font-size:24rpx; color:#999; }
+.mis-num { color:#0079FF; font-weight:600; margin:0 4rpx; }
+
+/* 三点菜单 */
+.med-item-more { width:52rpx; height:52rpx; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:28rpx; color:#999; letter-spacing:2rpx; flex-shrink:0; margin-left:12rpx; }
+.med-item-more:active { background:#f5f5f5; }
+
+/* 药品详情弹窗 */
+.detail-modal { display:flex; align-items:center; justify-content:center; min-height:100vh; }
+.detail-card { position:relative; width:84vw; background:#fff; border-radius:28rpx; padding:44rpx 36rpx 36rpx; box-shadow:0 20rpx 60rpx rgba(0,0,0,0.2); }
+.detail-title { display:block; text-align:center; font-size:38rpx; font-weight:700; color:#1A1A1A; margin-bottom:32rpx; }
+.detail-row { display:flex; flex-direction:column; padding:18rpx 0; border-bottom:1rpx solid #f5f5f5; }
+.detail-row:last-of-type { border-bottom:none; }
+.dr-label { font-size:26rpx; color:#0079FF; font-weight:600; margin-bottom:4rpx; }
+.dr-val { font-size:30rpx; color:#1A1A1A; }
+.detail-btns { display:flex; gap:16rpx; margin-top:32rpx; }
+.dt-btn-edit { flex:1; height:88rpx; border-radius:16rpx; font-size:30rpx; font-weight:700; background:#0079FF; color:#fff; border:none; }
+.dt-btn-edit::after { border:none; }
+.dt-btn-close { flex:1; height:88rpx; border-radius:16rpx; font-size:30rpx; font-weight:700; background:#fff; color:#0079FF; border:2rpx solid #0079FF; }
+.dt-btn-close::after { border:none; }
+
+/* 库存弹窗 */
+.stock-modal { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:0; box-sizing:border-box; }
+.stock-modal-card { position:relative; width:88vw; background:#fff; border-radius:28rpx; padding:48rpx 40rpx 40rpx; box-shadow:0 20rpx 60rpx rgba(0,0,0,0.2); }
+.sm-close { position:absolute; top:24rpx; right:28rpx; width:52rpx; height:52rpx; border-radius:50%; background:#f0f0f0; display:flex; align-items:center; justify-content:center; font-size:28rpx; color:#999; }
+.sm-title { display:block; text-align:center; font-size:40rpx; font-weight:700; color:#1A1A1A; margin-bottom:10rpx; }
+.sm-med-name { display:block; text-align:center; font-size:32rpx; color:#0079FF; font-weight:600; margin-bottom:40rpx; }
+.sm-row { display:flex; align-items:center; justify-content:space-between; padding:32rpx 0; border-bottom:1rpx solid #f2f2f2; }
+.sm-label { font-size:30rpx; color:#1A1A1A; font-weight:500; flex-shrink:0; }
+.sm-val { font-size:30rpx; color:#999; }
+.sm-val.readonly { color:#B0B0B0; }
+.sm-input { width:200rpx; height:72rpx; background:#f5f5f5; border-radius:14rpx; padding:0 20rpx; font-size:30rpx; color:#1A1A1A; text-align:center; }
+.sm-preview { margin-top:24rpx; padding:20rpx; background:#E8F3FF; border-radius:14rpx; text-align:center; }
+.sm-preview text { font-size:28rpx; color:#0079FF; font-weight:600; }
+.sm-btn { width:100%; height:104rpx; border-radius:18rpx; font-size:34rpx; font-weight:700; background:#0079FF; color:#fff; border:none; margin-top:40rpx; box-shadow:0 8rpx 24rpx rgba(0,121,255,0.35); }
+.sm-btn::after { border:none; }
+.sm-btn:active { background:#0060CC; transform:scale(0.98); }

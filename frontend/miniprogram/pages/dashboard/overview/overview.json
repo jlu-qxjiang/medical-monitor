@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "用药详情",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "loading-box": "/components/loading/loading",
+    "empty-state": "/components/empty-state/empty-state",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-progress": "@vant/weapp/progress/index"
+  }
+}

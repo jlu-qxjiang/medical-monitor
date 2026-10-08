@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>朝夕小叮 - 后台管理</title>
+<link rel="stylesheet" href="/static/app.css">
+<style>
+.admin-page { max-width:900px; margin:0 auto; padding:20px; }
+.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+.stat-card { background:#fff; border-radius:12px; padding:20px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+.stat-num { font-size:36px; font-weight:700; color:#0079FF; display:block; }
+.stat-label { font-size:14px; color:#999; margin-top:4px; }
+.section-title { font-size:18px; font-weight:700; margin:24px 0 12px; }
+table { width:100%; border-collapse:collapse; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+th,td { padding:14px 16px; text-align:left; font-size:14px; border-bottom:1px solid #f0f0f0; }
+th { background:#f8f8f8; font-weight:600; }
+.tag-elder { background:#FFF3E0; color:#E65100; padding:2px 10px; border-radius:10px; font-size:12px; }
+.tag-child { background:#E3F2FD; color:#1565C0; padding:2px 10px; border-radius:10px; font-size:12px; }
+.tag-admin { background:#F3E5F5; color:#7B1FA2; padding:2px 10px; border-radius:10px; font-size:12px; }
+@media (max-width:600px) { .stats { grid-template-columns:repeat(2,1fr); } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h2>朝夕小叮 - 后台</h2>
+  <div class="right">
+    <span class="role-tag tag-admin">管理员</span>
+    <button class="btn btn-undo" style="padding:6px 14px;font-size:13px;" onclick="logout()">退出</button>
+  </div>
+</div>
+
+<div class="admin-page">
+  <div class="stats">
+    <div class="stat-card"><span class="stat-num" id="sTotalUsers">-</span><span class="stat-label">总用户数</span></div>
+    <div class="stat-card"><span class="stat-num" id="sTodayUsers">-</span><span class="stat-label">今日新增</span></div>
+    <div class="stat-card"><span class="stat-num" id="sTotalRems">-</span><span class="stat-label">今日提醒</span></div>
+    <div class="stat-card"><span class="stat-num" id="sConfirmed">-</span><span class="stat-label">已确认</span></div>
+  </div>
+
+  <div class="section-title">用户列表</div>
+  <table id="userTable"><thead><tr><th>ID</th><th>昵称</th><th>手机号</th><th>角色</th><th>注册时间</th></tr></thead><tbody></tbody></table>
+</div>
+
+<script src="/static/app.js"></script>
+<script>
+var auth = checkAuth();
+if (!auth) { throw new Error('Not logged in'); }
+
+async function loadStats() {
+  var res = await api('/api/v1/admin/stats');
+  if (res.code===0 && res.data) {
+    document.getElementById('sTotalUsers').textContent = res.data.total_users || 0;
+    document.getElementById('sTodayUsers').textContent = res.data.users_today || 0;
+    document.getElementById('sTotalRems').textContent = res.data.reminders_total || 0;
+    document.getElementById('sConfirmed').textContent = res.data.reminders_confirmed || 0;
+  }
+}
+
+async function loadUsers() {
+  var res = await api('/api/v1/admin/users');
+  if (res.code!==0 || !res.data) return;
+  var html = '';
+  var roles = {0:'未选',1:'老人',2:'子女',3:'管理员'};
+  var tags = {1:'tag-elder',2:'tag-child',3:'tag-admin'};
+  (res.data.list||[]).forEach(function(u){
+    html += '<tr><td>'+u.id+'</td><td>'+u.nickname+'</td><td>'+u.phone+'</td>';
+    html += '<td><span class="'+ (tags[u.role]||'') +'">'+ (roles[u.role]||'未知') +'</span></td>';
+    html += '<td>'+u.created_at+'</td></tr>';
+  });
+  document.querySelector('#userTable tbody').innerHTML = html;
+}
+
+loadStats(); loadUsers();
+</script>
+</body>
+</html>

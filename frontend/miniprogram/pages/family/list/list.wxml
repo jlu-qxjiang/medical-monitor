@@ -1,0 +1,46 @@
+<!-- 家庭组管理 -->
+<view class="page-container">
+
+  <view wx:if="{{isLoading}}"><text class="loading">加载中...</text></view>
+  <view wx:elif="{{loadError}}" bindtap="handleRetry" class="error"><text>加载失败，点击重试</text></view>
+
+  <view wx:else>
+    <!-- 已加入的家庭组卡片 -->
+    <view wx:for="{{familyList}}" wx:key="id" wx:if="{{familyList.length > 0}}" class="family-card">
+      <text class="f-name">{{item.name}}</text>
+      <text class="f-meta">{{item.member_count}}位成员</text>
+
+      <!-- 邀请码 + 倒计时（非个人家庭） -->
+      <view wx:if="{{!item.is_personal}}" class="invite-area">
+        <text class="invite-label">邀请码</text>
+        <view class="invite-row">
+          <text class="invite-code">{{item.invite_code}}</text>
+          <text class="invite-expire">有效期10分钟</text>
+          <button class="refresh-btn" bindtap="refreshInvite" data-fid="{{item.id}}">刷新</button>
+        </view>
+      </view>
+
+      <!-- 成员列表 -->
+      <view class="members">
+        <text class="section-title">成员</text>
+        <view wx:for="{{item.elders}}" wx:key="user_id" class="member-row">
+          <text>{{item.nickname || '未命名'}}</text>
+          <text class="role-tag">老人</text>
+        </view>
+      </view>
+
+      <!-- 操作 -->
+      <view class="f-actions">
+        <button class="btn-sm" bindtap="handleSwitchFamily" data-family="{{item}}">切换到此家庭</button>
+      </view>
+    </view>
+
+    <!-- 空态 -->
+    <view wx:if="{{familyList.length === 0}}" class="empty">
+      <text>还没有家庭组</text>
+      <button bindtap="handleCreate">创建家庭组</button>
+      <text class="join-link" bindtap="handleJoin">输入邀请码加入</text>
+    </view>
+  </view>
+
+</view>

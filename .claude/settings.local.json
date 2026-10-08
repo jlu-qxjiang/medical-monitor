@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i '104s/^\\\\tt\\\\t/\\\\t/' internal/model/model.go)",
+      "Bash(sed -i '330s/^\\\\tt\\\\t/\\\\t/' internal/model/model.go)",
+      "Bash(go build *)",
+      "Bash(sed -i '104s/^t\\\\t/\\\\t/' internal/model/model.go)",
+      "Bash(sed -i '104p' internal/model/model.go)",
+      "Bash(sed -i \"104s/^t\\\\tExpiry/\\\\tExpiry/\" internal/model/model.go)",
+      "Bash(sed -i \"330s/^t\\\\tExpiry/\\\\tExpiry/\" internal/model/model.go)",
+      "Bash(sed -i '/^t\\\\t/s/^t\\\\t/\\\\t/' internal/service/medicine_service.go)",
+      "Bash(sed -i '/^t\\\\t/s/^t\\\\t/\\\\t/' internal/model/model.go)"
+    ]
+  }
+}

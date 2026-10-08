@@ -1,0 +1,14 @@
+{
+  "navigationBarTitleText": "今日用药",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "loading-box": "/components/loading/loading",
+    "empty-state": "/components/empty-state/empty-state",
+    "confirm-dialog": "/components/confirm-dialog/confirm-dialog",
+    "van-button": "@vant/weapp/button/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-empty": "@vant/weapp/empty/index",
+    "van-action-sheet": "@vant/weapp/action-sheet/index",
+    "van-icon": "@vant/weapp/icon/index"
+  }
+}

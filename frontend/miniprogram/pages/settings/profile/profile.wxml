@@ -1,0 +1,102 @@
+<view class="pg">
+
+  <!-- 用户信息卡片 -->
+  <view class="pf-user-card">
+    <view class="pf-user-left">
+      <view class="pf-avatar"><text>{{nickname.charAt(0)}}</text></view>
+      <view class="pf-user-info">
+        <text class="pf-name">{{nickname}}</text>
+        <view class="pf-name-tag">家庭健康守护者</view>
+      </view>
+    </view>
+    <view class="pf-user-right">
+      <view class="pf-edit-btn" bindtap="openEditProfile">编辑资料</view>
+    </view>
+  </view>
+
+  <!-- 编辑资料弹窗 -->
+  <van-popup wx:if="{{showEditProfile}}" show="{{true}}" round bind:close="closeEditProfile" custom-style="background:transparent;">
+    <view class="pf-edit-modal">
+      <view class="pf-edit-card" catchtap="">
+        <view class="pf-edit-close" bindtap="closeEditProfile">✕</view>
+        <text class="pf-edit-title">编辑资料</text>
+        <van-field label="昵称" value="{{editNickname}}" placeholder="输入新昵称" bind:change="onEditNickname" />
+        <view style="padding:16rpx;">
+          <van-button type="primary" size="large" block loading="{{savingProfile}}" bind:click="saveProfile">保存</van-button>
+        </view>
+      </view>
+    </view>
+  </van-popup>
+
+  <!-- 提醒设置 -->
+  <view class="pf-section">
+    <view class="pf-card">
+      <view class="pf-row pf-clickable" bindtap="goNotification">
+        <text>提醒设置</text>
+        <text class="pf-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 家庭组卡片 -->
+  <view class="pf-section">
+    <text class="pf-sec-title">{{isPersonal?'个人空间':'家庭组'}}</text>
+    <view wx:if="{{familyId>0}}" class="pf-card">
+      <!-- 名称 -->
+      <view class="pf-row">
+        <text class="pf-label">名称</text>
+        <text class="pf-val">{{familyName}}</text>
+      </view>
+      <!-- 邀请码 -->
+      <view wx:if="{{!isPersonal && inviteCode}}" class="pf-row">
+        <text class="pf-label">邀请码</text>
+        <view class="pf-invite">
+          <text class="pf-code">{{inviteCode}}</text>
+          <button class="pf-refresh-btn" bindtap="refreshInvite">刷新</button>
+        </view>
+      </view>
+      <!-- 成员 -->
+      <view wx:if="{{members.length > 0}}">
+        <view class="pf-divider"><text>成员 ({{members.length}}人)</text></view>
+        <view wx:for="{{members}}" wx:key="user_id" class="pf-member">
+          <text class="pf-mem-name">{{item.nickname || '未命名'}}</text>
+          <picker wx:if="{{!isPersonal && item.role!=='owner'}}" mode="selector" range="{{roleOptions}}" value="{{item._roleIdx}}" data-uid="{{item.user_id}}" bindchange="changeRole">
+            <view class="pf-mem-role">
+              <text class="pf-mem-role-text {{item.role==='elder'?'tag-orange':''}}">{{item._roleText || '子女'}}</text>
+              <text class="pf-mem-arrow">▾</text>
+            </view>
+          </picker>
+          <text wx:else class="pf-mem-tag tag-blue">创建者</text>
+        </view>
+      </view>
+      <!-- 操作 -->
+      <view class="pf-divider"></view>
+      <view wx:if="{{!isPersonal && myRole==='owner'}}" class="pf-row pf-clickable" bindtap="deleteFamily">
+        <text class="pf-danger">解散家庭组</text>
+        <text class="pf-arrow">›</text>
+      </view>
+      <view wx:elif="{{!isPersonal && myRole!=='owner'}}" class="pf-row pf-clickable" bindtap="leaveFamily">
+        <text class="pf-danger">退出家庭组</text>
+        <text class="pf-arrow">›</text>
+      </view>
+    </view>
+    <!-- 无家庭 -->
+    <view wx:else class="pf-card">
+      <view class="pf-row pf-clickable" bindtap="createFamily">
+        <text>创建家庭组</text>
+        <text class="pf-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="pf-section">
+    <view class="pf-card">
+      <view class="pf-row pf-clickable" bindtap="handleLogout">
+        <text class="pf-danger">退出登录</text>
+        <text class="pf-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+</view>

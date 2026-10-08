@@ -1,0 +1,72 @@
+/* 药品卡片样式 */
+.medicine-card {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  background: var(--color-bg-white);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-sm);
+}
+
+.medicine-card.clickable:active {
+  background-color: #F9F9F9;
+}
+
+.medicine-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.medicine-name-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin-bottom: 6rpx;
+}
+
+.medicine-name {
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.medicine-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.medicine-spec,
+.medicine-dosage,
+.medicine-manufacturer {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.medicine-dosage {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.stock-warning {
+  margin-top: 6rpx;
+  font-size: var(--font-size-sm);
+  color: #B8860B;
+}
+
+.stock-warning.danger {
+  color: var(--color-danger);
+}
+
+.medicine-arrow {
+  margin-left: var(--spacing-sm);
+}
+
+.medicine-arrow {
+  color: var(--color-text-muted);
+  margin-left: var(--spacing-sm);
+}

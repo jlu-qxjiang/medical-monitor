@@ -1,0 +1,38 @@
+/* 空状态样式 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  min-height: 400rpx;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.6;
+}
+
+.empty-title {
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+  text-align: center;
+  font-weight: 600;
+}
+
+.empty-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.6;
+}
+
+.empty-action {
+  margin-top: var(--spacing-md);
+  padding: 0 var(--spacing-xl);
+  width: auto;
+  min-width: 320rpx;
+}
