@@ -1,13 +1,13 @@
 server:
-  port: "8080"
+  port: ""
   mode: "release" # debug=开发环境 release=生产环境
 
 database:
   host: "127.0.0.1"
-  port: 3306
-  user: "root"
+  port: 
+  user: ""
   password: "" # 填入你的数据库密码
-  dbname: "medical_monitor"
+  dbname: ""
   charset: "utf8mb4"
   max_idle_conns: 10
   max_open_conns: 100
